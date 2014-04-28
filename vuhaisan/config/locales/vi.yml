@@ -1,4 +1,11 @@
 vi:
+  views:
+    pagination:
+      first: "Đầu"
+      last: "Cuối"
+      previous: "Trước"
+      next: "Sau"
+      truncate: "&hellip;"
   admin:
     product: "Sản phẩm"
     category: "Loại"
