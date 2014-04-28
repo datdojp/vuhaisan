@@ -1,0 +1,8 @@
+<% id = SecureRandom.uuid %>
+<span id='<%= id %>'></span>
+<script type="text/javascript">
+  $(function() {
+    var day = moment.unix(<%= val.to_i %>)
+    $('#<%= id %>').html(day.format("DD/MM/YYYY HH:mm"));
+  });
+</script>

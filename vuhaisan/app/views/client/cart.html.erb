@@ -1,0 +1,112 @@
+<div id="cartDetail" align="center">
+  <%= form_tag client_pay_path, method: "post" do %>
+  <table>
+
+    <tr><td id="deliveryInfo">
+      <div>
+        <span class="groupTitle">1. <%= t("client.delivery_info") %></span>
+        <hr/>
+      </div>
+      <% if @user %>
+        <div>
+          <input id="useProfileCheck" type='checkbox'/>
+          <span class="use_profile"><%= t("client.use_profile") %></span>
+        </div>
+      <% end %>
+      <table>
+        <tr>
+          <td class="label" align="right"><%= t("client.name") %>(*)</td>
+          <td><%= text_field_tag :name, @cart.name, required: :required %></td>
+        </tr>
+        <tr>
+          <td class="label" align="right"><%= t("client.email") %></td>
+          <td><%= text_field_tag :email, @cart.email, type: :email %></td>
+        </tr>
+        <tr>
+          <td class="label" align="right"><%= t("client.address") %>(*)</td>
+          <td><%= text_field_tag :address, @cart.address, required: :required %></td>
+        </tr>
+        <tr>
+          <td class="label" align="right"><%= t("client.phone") %>(*)</td>
+          <td><%= text_field_tag :phone, @cart.phone, required: :required %></td>
+        </tr>
+      </table>
+      <div>
+        <span class="read_email_for_delivery_info">
+          <%= t("client.read_email_for_delivery_info") %>
+        </span>
+      </div>
+    </td></tr>
+      
+    <tr><td>
+      <div id="deliveryMethod">
+        <div>
+          <span class="groupTitle">2. <%= t("client.delivery_method") %></span>
+          <hr/>
+        </div>
+        <div class="content">
+          <%= Settei.first.delivery_method.html_safe %>
+        </div>
+      </div>
+    </td></tr>
+
+    <tr><td>
+      <div id="orderItems">
+        <div>
+          <span class="groupTitle">3. <%= t("client.order_items") %></span>
+          <hr/>
+        </div>
+        <%= render partial: "order_item_list", locals: {order: @cart} %>
+        <br/>
+        <%= radio_button_tag(
+              :payment,
+              Order::PAYMENT_AT_DELIVERIED,
+              Order::PAYMENT_AT_DELIVERIED == @cart.payment) %>
+        <%= Order.get_payment_as_text Order::PAYMENT_AT_DELIVERIED %>
+        <br/>
+        <%= radio_button_tag(
+              :payment,
+              Order::PAYMENT_BANK_TRANSFER,
+              Order::PAYMENT_BANK_TRANSFER == @cart.payment) %>
+        <%= Order.get_payment_as_text Order::PAYMENT_BANK_TRANSFER %>
+        <br/>
+        <%= radio_button_tag(
+              :payment,
+              Order::PAYMENT_VTC_PAY,
+              Order::PAYMENT_VTC_PAY == @cart.payment) %>
+        <%= Order.get_payment_as_text Order::PAYMENT_VTC_PAY %>
+      </div>
+    </td></tr>
+
+    <tr><td>
+      <% if @cart.sum_quantity > 0 %>
+        <div style="margin-top:30px;" align="left">
+          <%= submit_tag t("client.pay"), class: "blueButton"  %>
+          <button id="deleteOrderButton" class="redButton"
+            style="margin-left:20px;"><%= t("client.delete_cart") %>
+          </button>
+        </div>
+      <% end %>
+    </td></tr>
+
+  </table>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  <% if @user %>
+    cart(
+      "<%= client_delete_cart_path %>",
+      "<%= client_remove_from_cart_remote_remote_path %>",
+      "<%= @user.name %>",
+      "<%= @user.email %>",
+      "<%= @user.address %>",
+      "<%= @user.phone %>"
+    );
+  <% else %>
+    cart(
+      "<%= client_delete_cart_path %>",
+      "<%= client_remove_from_cart_remote_remote_path %>",
+      null, null, null, null);
+  <% end %>
+</script>

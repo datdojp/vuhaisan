@@ -1,0 +1,17 @@
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+
+<%= form_for @settei, role: 'form' do |f| %>
+  <label><%= t("client.delivery_method") %></label>
+  <%= f.text_area :delivery_method, class: "ckeditor form-control" %>
+
+  <hr/>
+  <label><%= t("client.pay_at_delivery") %></label>
+  <%= f.text_area :payment_at_delivery, class: "ckeditor form-control" %>
+
+  <hr/>
+  <label><%= t("client.pay_bank_transfer") %></label>
+  <%= f.text_area :payment_bank_transfer, class: "ckeditor form-control" %>
+
+  <hr/>
+  <%= f.submit t("admin.edit"), class: 'btn btn-warning' %>
+<% end %>

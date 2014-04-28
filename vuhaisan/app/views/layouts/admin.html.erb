@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% title = @title || "Please set title" %>
+  <title><%=title%></title>
+  <%= stylesheet_link_tag "admin" %>
+  <%= javascript_include_tag "admin" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div>
+    <%= 
+      link_to(
+        t("admin.product"),
+        products_path,
+        {
+          class: (@tab==0?"selected_tab":"")
+        }
+      )
+    %>
+    <%=
+      link_to(
+        t("admin.category"),
+        categories_path,
+        {
+          class: (@tab==1?"selected_tab":""),
+          style: "margin-left:10px;"
+        }
+      )
+    %>
+    <%=
+      link_to(
+        t("admin.settei"),
+        edit_settei_path(@settei.id.to_s),
+        {
+          class: (@tab==2?"selected_tab":""),
+          style: "margin-left:10px;"
+        }
+      )
+    %>
+    <%=
+      link_to(
+        t("admin.user"),
+        users_path,
+        {
+          class: (@tab==3?"selected_tab":""),
+          style: "margin-left:10px;"
+        }
+      )
+    %>
+    <%=
+      link_to(
+        t("admin.order"),
+        orders_path,
+        {
+          class: (@tab==4?"selected_tab":""),
+          style: "margin-left:10px;"
+        }
+      )
+    %>
+    <%= link_to(
+          t("admin.logout"),
+          admin_logout_path,
+          method: :delete,
+          style: "float:right;"
+        )%>
+  </div>
+  <hr/>
+
+  <% if @error %>
+    <div class="error_box">
+      <%= @error %>
+    </div>
+  <% end %>
+
+  <h3><%= title %></h3>
+
+  <%= yield %>
+
+</body>
+</html>

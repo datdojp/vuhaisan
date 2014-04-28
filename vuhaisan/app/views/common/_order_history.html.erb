@@ -1,0 +1,10 @@
+<% if order.history %>
+  <div>
+    <% order.history.each do |h| %>
+      <div>
+        - <b><i><%= Order.get_step_as_text h[0] %></i></b>:
+        <%= render partial: 'common/datetime', locals: { val: h[1] } %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

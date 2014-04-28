@@ -1,0 +1,67 @@
+<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+
+<%= form_for(
+      @product,
+      html: { :multipart => true },
+      role: 'form') do |f| %>
+
+  <div class="form-group">
+    <label><%= t "admin.image" %></label>
+    <br/>
+    <button class="btn btn-default" onclick="$('#file').click();return false;">
+      ...
+    </button>
+    <%= f.file_field :image, required: :required, style: 'display:none', id: 'file' %>
+  </div>
+  <div class="form-group">
+    <label><%= t "admin.name" %></label>
+    <%= f.text_field :name, required: :required, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <label><%= t "admin.unit" %></label>
+    <%
+      unit_opts = []
+      Product::UNITS.each do |u|
+        unit_opts << [Product.get_unit_text(u), u]
+      end
+    %>
+    <%= f.select(
+          :unit,
+          options_for_select(unit_opts, @product.unit),
+          {},
+          {
+            class: 'form-control',
+            style: 'width: 200px;'
+          }) %>
+  </div>
+  <div class="form-group">
+    <label><%= t "admin.price" %></label>
+    <%= f.text_field :price, required: :required, type: :number, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <label><%= t "admin.quantity" %></label>
+    <%= f.text_field :quantity, required: :required, type: :number, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <label><%= t "admin.category" %></label>
+    <%
+      cate_opts = []
+      @categories.each do |c|
+        cate_opts << [c.name, c.id]
+      end
+    %>
+    <%= f.select(
+          :category_id,
+          options_for_select(cate_opts, @product.category_id),
+          {},
+          {
+            class: 'form-control',
+            style: 'width: 200px;'
+          }) %>
+  </div>
+  <div class="form-group">
+    <label><%= t "admin.desc" %></label>
+    <%= f.text_area :desc, rows: 5, cols: 40, class: "ckeditor form-control" %>
+  </div>
+  <%= f.submit t("admin.create"), class: 'btn btn-success' %>
+<% end %>

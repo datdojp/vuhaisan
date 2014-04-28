@@ -1,0 +1,41 @@
+<div id="product_detail">
+  <div class="col1">
+    <img src="<%= @product.get_image_url %>"/>
+  </div>
+  <div class="col2">
+    <div class="info">
+      <%= render partial: "product_info", locals: {product: @product} %>
+    </div>
+    <% if @product.in_store? %>
+      <%= form_tag client_add_to_cart_path(product_id: @product.id.to_s, category_id: @category_id), method: "post", class: "add_to_cart_form" do %>
+        <span class="label"><%= t("client.select_quantity") %></span>
+        <%
+          quantity_opts = []
+          (1..@product.quantity).each do |q|
+            quantity_opts << [q, q]
+          end
+        %>
+        <%= select_tag :quantity, options_for_select(quantity_opts, 1), id: "quantity_select" %>
+        <span class="label" style="margin-left:20px;"><%= t("client.total") %>:</span>
+        <span id="total"><%= @product.price %></span>
+        <br/>
+        <%= submit_tag t("client.add_to_cart"), class: "blueButton", style: "margin-top:10px;" %>
+      <% end %>
+    <% end %>
+    <div class="desc"><%= @product.desc.html_safe %></div>
+    <div class="fbComments">
+      <fb:comments href="<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>" numposts="5" colorscheme="light"></fb:comments>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var price = <%= @product.price %>;
+  var total = price;
+  var $totalText = $("#total");
+  $totalText.html(total.format(0, 3));
+  $("#quantity_select").change(function() {
+    total = parseInt($(this).val()) * price;
+    $totalText.html(total.format(0, 3));
+  });
+</script>

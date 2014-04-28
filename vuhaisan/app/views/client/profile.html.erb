@@ -1,0 +1,52 @@
+<div id="profileDetail" align="center">
+  <%= form_tag client_update_profile_path, method: "post" do %>
+    <table cellpadding="10" style="margin-bottom: 10px;">
+      <tr>
+        <td align="right"><%= t("client.name") %>(*)</td>
+        <td><%= text_field_tag :name, @user.name, required: :required %></td>
+      </tr>
+      <tr>
+        <td align="right"><%= t("client.email") %></td>
+        <td><%= text_field_tag :email, @user.email, type: :email %></td>
+      </tr>
+      <tr>
+        <td align="right"><%= t("client.address") %>(*)</td>
+        <td><%= text_field_tag :address, @user.address, required: :required %></td>
+      </tr>
+      <tr>
+        <td align="right"><%= t("client.phone") %>(*)</td>
+        <td><%= text_field_tag :phone, @user.phone, required: :required %></td>
+      </tr>
+    </table>
+    <%= submit_tag t("client.update"), class: "blueButton" %>
+    <button id="logoutButton" class="redButton" style="margin-left:20px;"><%= t("client.logout") %></button>
+  <% end %>
+
+  <br/>
+  <br/>
+
+  <% if @orders && @orders.length > 0 %>
+  <table class="client_data_table clickable_table">
+    <tr>
+      <th><%= t "client.code" %></th>
+      <th><%= t "client.desc" %></th>
+      <th><%= t "client.ship_cost" %></th>
+      <th><%= t "client.total" %></th>
+      <th><%= t "client.status" %></th>
+    </tr>
+    <% @orders.each do |o| %>
+      <tr onclick="location.href='<%= client_order_path(o.code) %>'">
+        <td><%= o.code %></td>
+        <td><%= o.desc %></td>
+        <td><%= number_to_currency o.ship_cost, unit: "", precision: 0 %></td>
+        <td><%= number_to_currency o.sum, unit: "", precision: 0 %></td>
+        <td><%= o.step_as_text %></td>
+      </tr>
+    <% end %>
+  </table>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  profile("<%= client_logout_path %>");
+</script>

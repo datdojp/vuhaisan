@@ -1,0 +1,7 @@
+<% id = SecureRandom.uuid %>
+<input name='timezone' id='<%= id %>' type='hidden' />
+<script type="text/javascript">
+  $(function() {
+    $('#<%= id %>').val(moment().zone());
+  });
+</script>

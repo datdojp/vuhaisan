@@ -1,0 +1,135 @@
+<%= form_for(@order, role: 'form') do |f| %>
+  <div class='well'>
+    <% if @order.user %>
+      <%= render partial: 'admin/user_fb', locals: {user: @order.user} %>
+      <br/>
+      <br/>
+    <% end %>
+
+    <div class="form-group">
+      <label><%= t "admin.name" %>(*)</label>
+      <%= f.text_field :name, required: :required, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <label><%= t "admin.email" %></label>
+      <%= f.text_field :email, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <label><%= t "admin.address" %>(*)</label>
+      <%= f.text_field :address, required: :required, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <label><%= t "admin.phone" %>(*)</label>
+      <%= f.text_field :phone, required: :required, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class='well'>
+    <div class="form-group">
+      <label><%= t "admin.payment" %></label>
+      <br/>
+      <%= f.radio_button(
+            :payment,
+            Order::PAYMENT_AT_DELIVERIED,
+            checked: Order::PAYMENT_AT_DELIVERIED == @order.payment) %>
+      <%= Order.get_payment_as_text Order::PAYMENT_AT_DELIVERIED %>
+      <br/>
+      <%= f.radio_button(
+            :payment,
+            Order::PAYMENT_BANK_TRANSFER,
+            checked: Order::PAYMENT_BANK_TRANSFER == @order.payment) %>
+      <%= Order.get_payment_as_text Order::PAYMENT_BANK_TRANSFER %>
+      <br/>
+      <%= f.radio_button(
+            :payment,
+            Order::PAYMENT_VTC_PAY,
+            checked: Order::PAYMENT_VTC_PAY == @order.payment) %>
+      <%= Order.get_payment_as_text Order::PAYMENT_VTC_PAY %>
+    </div>
+
+    <% if @order.payment_failure_reason %>
+    <div class="form-group">
+      <label><%= t "admin.payment_failure_reason" %></label>
+      <br/>
+      <%= @order.payment_failure_reason %>
+    </div>
+    <% end %>
+
+    <div class="form-group">
+      <label><%= t "admin.status" %></label>
+      <br/>
+      <%= f.radio_button(
+            :step,
+            Order::STEP_SENT,
+            checked: Order::STEP_SENT == @order.step) %>
+      <%= Order.get_step_as_text Order::STEP_SENT %>
+      <br/>
+      <%= f.radio_button(
+            :step,
+            Order::STEP_PAID,
+            checked: Order::STEP_PAID == @order.step) %>
+      <%= Order.get_step_as_text Order::STEP_PAID %>
+      <br/>
+      <%= f.radio_button(
+            :step,
+            Order::STEP_DELIVERING,
+            checked: Order::STEP_DELIVERING == @order.step) %>
+      <%= Order.get_step_as_text Order::STEP_DELIVERING %>
+      <br/>
+      <%= f.radio_button(
+            :step,
+            Order::STEP_FINISHED,
+            checked: Order::STEP_FINISHED == @order.step) %>
+      <%= Order.get_step_as_text Order::STEP_FINISHED %>
+      <br/>
+      <%= f.radio_button(
+            :step,
+            Order::STEP_CANCELED,
+            checked: Order::STEP_CANCELED == @order.step) %>
+      <%= Order.get_step_as_text Order::STEP_CANCELED %>
+    </div>
+
+    <% if @order.history && @order.history.length > 0 %>
+      <label><%= t "admin.history" %></label>
+      <%= render partial: 'common/order_history', locals: { order: @order } %>
+    <% end %>
+  </div>
+  
+  <table class="table table-hover table-bordered table-striped table-condensed">
+    <tr>
+      <th><%= t("admin.product_name") %></th>
+      <th><%= t("admin.price") %></th>
+      <th><%= t("admin.quantity") %></th>
+      <th><%= t("admin.total") %></th>
+    </tr>
+
+    <% @order.items.each do |i| %>
+    <tr>
+      <td><%= i.name %></td>
+      <td>
+        <%= number_to_currency i.price, unit: "", precision: 0 %>
+        /
+        <%= Product.get_unit_text i.unit %>
+      </td>
+      <td><%= i.quantity %></td>
+      <td><%= number_to_currency i.total, unit: "", precision: 0 %></td>
+    </tr>
+    <% end %>
+
+    <tr>
+      <td colspan="3"><%= t "admin.ship_cost" %></td>
+      <td align="center">
+        <%= number_to_currency @order.ship_cost, unit: "", precision: 0 %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3"><%= t("client.sum") %></td>
+      <td align="center">
+        <%= number_to_currency @order.sum, unit: "", precision: 0 %>
+      </td>
+    </tr>
+  </table>
+  
+  <%= f.submit t('admin.edit'), class: 'btn btn-warning' %>
+
+<% end %>

@@ -1,0 +1,39 @@
+<table class="client_data_table" style="width:100%;">
+  <tr>
+    <th><%= t("client.product_name") %></th>
+    <th><%= t("client.price") %></th>
+    <th><%= t("client.quantity") %></th>
+    <th><%= t("client.total") %></th>
+    <% if order.step == Order::STEP_CARTING %>
+      <th></th>
+    <% end %>
+  </tr>
+  <% order.items.each do |i| %>
+  <tr id="<%= i.id.to_s %>">
+    <td><%= i.name %></td>
+    <td>
+      <%= number_to_currency i.price, unit: "", precision: 0 %>
+      /
+      <%= Product.get_unit_text i.unit %>
+    </td>
+    <td><%= i.quantity %></td>
+    <td class="total"><%= number_to_currency i.total, unit: "", precision: 0 %></td>
+    
+    <% if order.step == Order::STEP_CARTING %>
+    <td><%= image_tag "remove-from-cart.png", class: "removeFromCartButton", title: t("client.remove_from_cart"), data: i.id.to_s  %></td>
+    <% end %>
+  </tr>
+  <% end %>
+  <tr>
+    <td colspan="3"><%= t "client.ship_cost" %></td>
+    <td colspan="2" class="total sum" align="center">
+      <%= number_to_currency order.ship_cost, unit: "", precision: 0 %>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="3" class="sumText"><%= t("client.sum") %></td>
+    <td colspan="2" class="total sum" align="center">
+      <%= number_to_currency order.sum, unit: "", precision: 0 %>
+    </td>
+  </tr>
+</table>

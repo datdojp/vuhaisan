@@ -1,0 +1,6 @@
+<%= form_for @category, role: 'form' do |f| %>
+  <label><%= t "admin.name" %></label>
+  <%= f.text_field :name, required: :required, class: 'form-control' %>
+  <br/>
+  <%= f.submit t("admin.create"), class: 'btn btn-primary' %>
+<% end %>

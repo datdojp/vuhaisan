@@ -1,0 +1,14 @@
+<% id = "datetimePicker_#{name}" %>
+<div class='input-group date' id='<%= id %>'  data-date-format='DD/MM/YYYY'>
+  <input type='text' class="form-control" name="<%= name %>" value="<%= val %>" />
+  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+  </span>
+</div>
+
+<script type="text/javascript">
+  $(function () {
+      $('#<%= id %>').datetimepicker({
+        pickTime: false
+      });
+  });
+</script>

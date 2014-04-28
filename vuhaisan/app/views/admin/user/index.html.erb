@@ -1,0 +1,40 @@
+<%= paginate @users %>
+
+<table class="table table-hover table-bordered table-striped table-condensed">
+  <tr>
+  	<th>Facebook</th>
+  	<th><%= t "admin.name" %></th>
+  	<th><%= t "admin.email" %></th>
+  	<th><%= t "admin.address" %></th>
+  	<th><%= t "admin.phone" %></th>
+  	<th><%= t "admin.order" %></th>
+  </tr>
+  <% @users.each do |u| %>
+  <tr>
+  	<td align="center">
+  		<%= render partial: "admin/user_fb", locals: {user: u} %>
+  	</td>
+  	<td><%= u.name %></td>
+  	<td><%= u.email %></td>
+  	<td><%= u.address %></td>
+  	<td><%= u.phone %></td>
+  	<td>
+  	  <div><b><%= link_to "#{u.order_count} #{t('admin.order')}", orders_path(keyword: u.fb_id) %></b></div>
+
+  	  <% order_counts_id = "order_counts_#{u.id.to_s}" %>
+  	  <div id="<%= order_counts_id %>" style="display:none">
+  	  	<% order_count_for_each_step = u.order_count_for_each_step %>
+  	  	<% order_count_for_each_step.each do |step, count| %>
+  		  <div><%= "#{count} #{Order.get_step_as_text step}" %></div>
+  	  	<% end %>
+  	  </div>
+	  
+  	  <button onclick="$('#<%= order_counts_id %>').toggle();return false;" class="btn btn-primary">
+        <%= t "admin.see_more" %>
+      </button>
+  	</td>
+  </tr>
+  <% end %>
+</table>
+
+<%= paginate @users %>

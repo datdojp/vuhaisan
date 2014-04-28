@@ -1,0 +1,39 @@
+<div id="productList">
+  <div id="facepile">
+    <fb:facepile
+      href="<%= get_fanpage %>"
+      max_rows="1"
+      colorscheme="light"
+      size="medium"
+      show_count="true">
+    </fb:facepile>
+    <br/>
+    <div class="fb-like" data-href="<%= get_fanpage %>" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+  </div>
+<% @products.each_with_index do |p, i| %>
+  <% product_detail_link = client_product_detail_path(p.id, category_id: @category_id) %>
+  <a href="<%= product_detail_link %>">
+    <div class="product">
+      <div class="col1">
+        <%= render partial: "product_info", locals: {product: p} %>
+      </div>
+      <div class="col2">
+        <img src="<%= p.get_image_url %>"/>
+      </div>
+    </div>
+  </a>
+  <div class="footer">
+      <div class="fb-like" data-href="<%= "#{request.protocol}#{request.host_with_port}#{product_detail_link}" %>" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
+      <% if p.in_store? %>
+      <div class="addToCartButton" data-product-id="<%= p.id.to_s %>">
+        <%= image_tag "add-to-cart.png", title: t("client.add_to_cart") %>
+      </div>
+      <% end %>
+  </div>
+<% end %>
+<%= paginate @products %>
+</div>
+
+<script type="text/javascript">
+  home("<%= client_add_to_cart_remote_path %>");
+</script>

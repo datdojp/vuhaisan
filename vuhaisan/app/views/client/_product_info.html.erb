@@ -1,0 +1,9 @@
+<p class="name"><%= product.name %></p>
+<p class="price">
+  <%= number_to_currency product.price, unit: "", precision: 0 %>
+  /
+  <%= Product.get_unit_text product.unit %>
+</p>
+<p class="in_store <%= !product.in_store? ? "not_in_store" : "" %>">
+  <%= product.in_store_as_text %>
+</p>

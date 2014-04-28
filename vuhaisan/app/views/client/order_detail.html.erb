@@ -1,0 +1,51 @@
+<div id="orderDetail" align="center">
+  <div style="width:60%" align="left">
+    
+    <table>
+      <tr>
+        <td class="label" align="right"><%= t "client.code" %></td>
+        <td><%= @order.code %></td>
+      </tr>
+      <tr>
+        <td class="label" align="right"><%= t "client.payment_method" %></td>
+        <td><%= @order.payment_as_text %></td>
+      </tr>
+      <tr>
+        <td class="label" align="right"><%= t "client.status" %></td>
+        <td><%= number_to_currency @order.step_as_text, unit: "", precision: 0 %></td>
+      </tr>
+
+      <tr>
+        <td class="label" align="right"><%= t "client.history" %></td>
+        <td>
+          <%= render partial: 'common/order_history', locals: { order: @order } %>
+        </td>
+      </tr>
+    </table>
+
+    <hr/>
+
+    <table>
+      <tr>
+        <td class="label" align="right"><%= t("client.name") %></td>
+        <td><%= @order.name %></td>
+      </tr>
+      <tr>
+        <td class="label" align="right"><%= t("client.email") %></td>
+        <td><%= @order.email %></td>
+      </tr>
+      <tr>
+        <td class="label" align="right"><%= t("client.address") %></td>
+        <td><%= @order.address %></td>
+      </tr>
+      <tr>
+        <td class="label" align="right"><%= t("client.phone") %></td>
+        <td><%= @order.phone %></td>
+      </tr>
+    </table>
+
+    <hr/>
+
+    <%= render partial: "order_item_list", locals: {order: @order} %>
+  </div>
+</div>

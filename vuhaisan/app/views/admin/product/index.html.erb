@@ -1,0 +1,69 @@
+<%= form_tag(
+      products_path,
+      method: 'get',
+      role: 'form',
+      class: 'form-inline') do %>
+  <div class="form-group">
+    <%= text_field_tag :keyword, @keyword, class: 'form-control' %>
+  </div>
+  <%= submit_tag t("admin.search"), class: 'btn btn-primary' %>
+  <%= submit_tag(
+        t("admin.clear"),
+        class: 'btn btn-danger',
+        onclick: "location.href='#{products_path}';return false;") %>
+<% end %>
+<p><%= t "admin.product_search_hint" %></p>
+
+<br/>
+
+<%= button_to t("admin.create"), new_product_path, method: :get, class: 'btn btn-success' %>
+
+<%= paginate @products %>
+<br/>
+<table class="table table-hover table-bordered table-striped table-condensed">
+  <tr>
+    <th><%= t "admin.image" %></th>
+    <th><%= t "admin.name" %></th>
+    <th><%= t "admin.unit" %></th>
+    <th><%= t "admin.price" %></th>
+    <th><%= t "admin.quantity" %></th>
+    <th><%= t "admin.category" %></th>
+    <th><%= t "admin.desc" %></th>
+    <th></th>
+  </tr>
+  <% @products.each do |p| %>
+    <tr>
+      <td><a href="<%=p.get_image_url%>"><img src="<%=p.get_image_url%>" height="50" /></a></td>
+      <td><%= p.name %></td>
+      <td><%= Product.get_unit_text p.unit %></td>
+      <td><%= number_to_currency p.price, unit: "", precision: 0 %></td>
+      <td><%= p.quantity %></td>
+      <td><%= p.category.name %></td>
+      <td>
+        <% if p.desc && p.desc.length > 0 %>
+          <div class="desc_<%= p.id.to_s %>" style="display:none; width:480px;"><%= p.desc.html_safe %></div>
+          <button class="seeMoreButton btn btn-info" data="desc_<%= p.id.to_s %>"><%= t("admin.see_more") %></button>
+        <% end %>
+      </td>
+      <td>
+        <%= button_to(
+              t("admin.edit"),
+              edit_product_path(p.id),
+              method: :get,
+              class: 'btn btn-warning',
+              style: 'float:left; margin-right:10px;') %>
+        <%= button_to(
+              t("admin.delete"),
+              p,
+              method: :delete,
+              onclick: "return confirm('#{t("admin.confirm_delete")}');",
+              class: 'btn btn-danger') %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<%= paginate @products %>
+
+<script type="text/javascript">
+  productIndex();
+</script>

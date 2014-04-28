@@ -1,0 +1,395 @@
+/*
+=== COMMON ===
+*/
+#menuBar {
+  width: 100%;
+  height: 50px;
+  position: relative;
+  background: #F0F0F0;
+  padding-left: 10px;
+}
+#menuBar #categoryList {
+  float:left;
+}
+
+#menuBar #categoryList .wrapper {
+  display: table-cell;
+  vertical-align: middle;
+  height: 50px;
+}
+
+#menuBar #categoryList .wrapper .col,
+#menuBar #categoryList .wrapper .selected {
+  float: left;
+  height: 20px;
+  padding: 3px 10px 3px 10px;
+  margin-right: 20px;
+}
+
+#menuBar #categoryList .wrapper .selected {
+  background: #5E54EF;
+  border-radius: 3px;
+}
+
+#menuBar #categoryList .wrapper .col a,
+#menuBar #categoryList .wrapper .selected a {
+  text-decoration: none;
+  font-size: 11pt;
+}
+
+#menuBar #categoryList .wrapper .col a {
+  color: #444444 !important;
+}
+
+#menuBar #categoryList .wrapper .selected a {
+  color: white !important;
+}
+
+#menuBar #userInfo {
+  float: right;
+  padding-right: 20px;
+}
+
+#menuBar #userInfo .col {
+  float: left;
+}
+
+#menuBar #userInfo .cart_image {
+  margin-top: 10px;
+}
+
+#menuBar #userInfo .cart_label {
+  margin-left: 5px;
+  margin-top: 17px;
+  color: #444444;
+}
+
+#menuBar #userInfo .cart_count {
+  margin-top: 18px;
+  margin-left: 5px;
+  font-size: 8pt;
+  font-weight: bold;
+  padding: 2px 6px 2px 6px;
+  color: white;
+  background: #ff0000;
+  border-radius: 150px;
+}
+
+#menuBar #userInfo .fbAccount {
+  margin-left: 100px;  
+  height: 50px;
+}
+
+#menuBar #userInfo .fbAccount .name {
+  margin-right: 10px;
+  float: left;
+  font-size: 12pt;
+  color: #444444;
+  margin-top: 16px;
+  display: none;
+}
+
+#menuBar #userInfo .fbAccount .profilePic {
+  width: 40px;
+  height: 40px;
+  border-radius: 150px;
+  float: left;
+  margin-top: 5px;
+  cursor: pointer;
+  display: none;
+}
+
+#menuBar #userInfo .fbAccount .loginButton {
+  margin-top: 11px;
+  display: none;
+}
+
+#header_seperator {
+  background: #e4e4e4;
+  width: 100%;
+  height: 1px;
+  margin-top: 5px;
+  margin-bottom: 2px;
+}
+
+.blueButton,
+.redButton {
+  background: #6358FC;
+  border-radius: 3px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 5px 20px 6px 20px;
+  cursor: pointer;
+}
+
+.redButton {
+  background: #ff0000 !important;
+}
+
+.client_data_table {
+  border-collapse:collapse;
+}
+
+.client_data_table th {
+  background-color: #00C064;
+  color: white !important;
+  font-size: 10pt;
+  font-weight: bold;
+  padding: 10px;
+  border: thin solid #00C064;
+}
+
+.client_data_table td {
+  padding: 10px;
+  border: thin solid #00C064;
+  color: #444444;
+  font-size: 11pt;
+}
+
+.client_data_table .total {
+  color: #2DBEA2 !important;
+}
+
+.client_data_table .sum {
+  font-weight: bold !important;
+}
+
+.client_data_table .sumText {
+  color: #2DBEA2 !important;
+  font-size: 12pt;
+  font-weight: bold;
+}
+
+.clickable_table td {
+  cursor: pointer;
+}
+
+.clickable_table tr:not(:first-child):hover {
+  background-color: #eeeeee;
+}
+
+.error_box {
+  background-color: yellow;
+  border: thin solid red;
+  padding: 20px;
+  color: black;
+}
+
+.message_box {
+  background-color: #E7EFE4;
+  border: thin solid #3071A9;
+  padding: 20px;
+  color: black;
+}
+
+/*
+=== HOME ===
+*/
+#productList {
+  width: 60%;
+  position: relative;
+  left: 20%;
+}
+
+#productList #facepile {
+  height: 80px;
+}
+
+#productList .product {
+  clear: both;
+  height: 120px;
+  margin-top: 20px;
+}
+
+#productList .product .col1 {
+  float: left;
+  height: 100%;
+}
+
+#productList .product .col1 .name {
+  color: #FF023E;
+  font-weight: bold;
+}
+
+#productList .product .col1 .price,
+#productList .product .col1 .in_store {
+  color: #7C8B55;
+}
+
+#productList .product .col1 .not_in_store {
+  color: #ff0000 !important;
+}
+
+#productList .product .col2 {
+  float: right;
+  height: 100%;
+}
+
+#productList .product .col2 img {
+  height: 120px;
+}
+
+#productList .footer {
+  background: #00CE3C;
+  width: 100%;
+  clear: both;
+  height: 30px;
+}
+
+#productList .footer .fb-like {
+  float:left;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+#productList .footer .addToCartButton {
+  float: right;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+#productList .footer .addToCartButton img {
+  width: 30px;
+  height: 30px;
+}
+
+
+/*
+=== PRODUCT DETAIL ===
+*/
+#product_detail {
+  width: 60%;
+  position: relative;
+  left: 20%;
+}
+
+#product_detail .col1 {
+  float: left;
+  width: 40%
+}
+
+#product_detail .col1 img {
+  width: 100%;
+}
+
+#product_detail .col2 {
+  float: left;
+  margin-left: 15px;
+  width: 50%;
+}
+
+#product_detail .col2 .info {
+  background: #E7FCEB;
+  width: 100%;
+  padding: 10px 10px 10px 10px;
+  border-radius: 3px;
+}
+
+#product_detail .col2 .info .name {
+  color: #FF023E;
+  font-weight: bold;
+}
+
+#product_detail .col2 .info .price,
+#product_detail .col2 .info .in_store {
+  color: #7C8B55;
+}
+
+#product_detail .add_to_cart_form {
+  margin-top: 20px;
+}
+
+#product_detail .add_to_cart_form .label {
+  font-weight: bold;
+}
+
+#product_detail .fbComments {
+  margin-top: 20px;
+}
+
+#product_detail .desc {
+  background-color: #44BF42;
+  border-radius: 5px;
+  padding: 10px 10px 10px 10px;
+  margin-top: 20px;
+}
+
+
+/*
+=== PROFILE DETAIL ===
+*/
+#profileDetail {
+  position: relative;
+}
+
+
+/*
+=== CART ===
+*/
+#cartDetail {
+  position: relative;
+}
+
+#cartDetail .groupTitle {
+  color: #FF7000;
+  font-size: 14pt;
+  font-weight: bold;
+}
+
+#cartDetail .read_email_for_delivery_info {
+  color: red;
+  font-size: 10pt;
+}
+
+#cartDetail #deliveryInfo {
+  padding-top: 30px;
+}
+
+#cartDetail #deliveryInfo .label {
+  background-color: #CDFBD5;
+  color: #003D1A;
+  font-size: 10pt;
+  padding: 10px;
+  font-weight: bold;
+}
+
+#cartDetail #deliveryInfo .use_profile {
+  font-size: 10pt;
+  color: #444444;
+}
+
+#cartDetail #deliveryMethod {
+  margin-top: 30px;
+}
+
+#cartDetail #deliveryMethod .content {
+  background-color: #ADF6B9;
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px 10px 10px 10px;
+  color: #00507A;
+}
+
+#cartDetail #orderItems {
+   margin-top: 30px;
+}
+
+#cartDetail #orderItems .removeFromCartButton {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+
+/*
+=== ORDER DETAIL ===
+*/
+#orderDetail .label {
+  background-color: #CDFBD5;
+  color: #003D1A;
+  font-size: 10pt;
+  padding: 10px;
+  font-weight: bold;
+  width: 150px;
+}

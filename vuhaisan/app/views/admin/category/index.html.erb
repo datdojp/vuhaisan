@@ -1,0 +1,30 @@
+<br/>
+<%= button_to t("admin.create"), new_category_path, method: :get, class: 'btn btn-success' %>
+<br/>
+<table class="table table-hover table-bordered table-striped table-condensed">
+  <tr>
+    <th><%= t "admin.name" %></th>
+    <th><%= t "admin.n_products" %></th>
+    <th></th>
+  </tr>
+  <% @categories.each do |c| %>
+    <tr>
+      <td><%= c.name %></td>
+      <td><%= link_to c.products.length, products_path(keyword: c.name) %></td>
+      <td>
+        <%= button_to(
+              t("admin.edit"),
+              edit_category_path(c.id),
+              method: :get,
+              class: 'btn btn-warning',
+              style: 'float:left; margin-right:10px;') %>
+        <%= button_to(
+              t("admin.delete"),
+              c,
+              method: :delete,
+              onclick: "return confirm('#{t("admin.confirm_delete")}');",
+              class: 'btn btn-danger')%>
+      </td>
+    </tr>
+  <% end %>
+</table>

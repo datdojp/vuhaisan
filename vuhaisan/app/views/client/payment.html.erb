@@ -1,0 +1,12 @@
+<div align="center">
+  <table><tr><td>
+    <%
+    settei = Settei.first
+    if Order::PAYMENT_AT_DELIVERIED == @cart.payment
+    %>
+      <%= settei.payment_at_delivery.html_safe %>
+    <% else %>
+      <%= settei.payment_bank_transfer.html_safe %>
+    <% end %>
+  </td></tr></table>
+</div>
