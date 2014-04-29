@@ -1,0 +1,112 @@
+<%
+  address = {} if !address
+  id = SecureRandom.uuid
+%>
+
+<div id='<%= id %>'>
+  <%= select_tag(
+        'address[province]',
+        options_for_select([], nil),
+        required: :required) %>
+  <%= select_tag(
+        'address[district]',
+        options_for_select([], nil),
+        style: 'display:none;') %>
+  <br/>
+  <%= text_field_tag(
+        'address[detail]',
+        address['detail'],
+        type: :text,
+        required: :required,
+        class: :text) %>
+</div>
+
+<script type="text/javascript">
+  (function() {
+
+    var id = '<%= id %>';
+    var locationData = <%= LOCATION_DATA.to_json.html_safe %>;
+    var address = <%= address.to_json.html_safe %>;
+
+    var addressProvinceSelect = $("#" + id + " select[name='address[province]']");
+    var provinceReadonly = false;
+    var provinceLastSelectedVal;
+
+    var addressDistrictSelect = $("#" + id + " select[name='address[district]']");
+    var districtReadonly = false;
+    var districtLastSelectedVal;
+
+    var addressDetailText = $("#" + id + " input[name='address[detail]']");
+
+    $(function() {
+      addressProvinceSelect.html('');
+      for (var k in locationData) {
+        addressProvinceSelect.append('<option value="' + k + '">' + k + '</option>');
+      }
+      addressProvinceSelect.change(function() {
+        if (provinceReadonly) {
+          addressProvinceSelect.val(provinceLastSelectedVal);
+          return;
+        }
+
+        var val = $(this).val();
+        var data = locationData[val];
+        if (typeof data === 'object') {
+          addressDistrictSelect.show();
+          addressDistrictSelect.attr('required', 'required');
+          for (var k in data) {
+            addressDistrictSelect.append('<option value="' + k + '">' + k + '</option>');
+          }
+          if (address['district']) {
+            addressDistrictSelect.val(address['district']).change();
+          } else {
+            addressDistrictSelect.val(Object.keys(data)[0]).change();
+          }
+        } else if (typeof data === 'number') {
+          addressDistrictSelect.hide();
+          addressDistrictSelect.removeAttr('required');
+          addressDistrictSelect.html('');
+          <% if shipCostCallback %>
+            <%= shipCostCallback %>(data);
+          <% end %>
+        }
+      })
+      if (address['province']) {
+        addressProvinceSelect.val(address['province']).change();
+      } else {
+        addressProvinceSelect.val(Object.keys(locationData)[0]).change();
+      }
+
+      addressDistrictSelect.change(function() {
+        if (districtReadonly) {
+          addressDistrictSelect.val(districtLastSelectedVal);
+          return;
+        }
+        <% if shipCostCallback %>
+          var data = locationData[addressProvinceSelect.val()][addressDistrictSelect.val()]
+          <%= shipCostCallback %>(data);
+        <% end %>
+      });
+    });
+
+    window.changeAddressInputs = function(_address) {
+      if (_address) {
+        address = _address;
+      } else {
+        address = {};
+      }
+      addressProvinceSelect.val(address['province']).change();
+      addressDetailText.val(address['detail']);
+    }
+
+    window.changeAddressInputsReadonly = function(readonly) {
+      provinceReadonly = readonly;
+      districtReadonly = readonly;
+      if (readonly) {
+        provinceLastSelectedVal = addressProvinceSelect.find('option:selected').val();
+        districtLastSelectedVal = addressDistrictSelect.find('option:selected').val();
+      }
+      addressDetailText.prop('readonly', readonly);
+    }
+  }).call();
+</script>

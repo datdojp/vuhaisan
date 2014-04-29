@@ -336,6 +336,10 @@
   position: relative;
 }
 
+#profileDetail input.text {
+  width: 300px;
+}
+
 
 /*
 === CART ===
@@ -365,6 +369,10 @@
   font-size: 10pt;
   padding: 10px;
   font-weight: bold;
+}
+
+#cartDetail #deliveryInfo input.text {
+  width: 300px;
 }
 
 #cartDetail #deliveryInfo .use_profile {

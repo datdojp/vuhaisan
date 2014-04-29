@@ -3,7 +3,7 @@ class User
 
   field :fb_id, type: String
   field :name, type: String
-  field :address, type: String
+  field :address, type: Hash, default: {}
   field :phone, type: String
   field :email, type: String
 

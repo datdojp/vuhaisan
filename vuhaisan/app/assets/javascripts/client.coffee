@@ -67,19 +67,18 @@ window.cart = (deleteOrderPath, removeFromCartPath, name, email, address, phone)
     $("#useProfileCheck").change ->
       $name = $("#deliveryInfo input[name=name]")
       $email = $("#deliveryInfo input[name=email]")
-      $address = $("#deliveryInfo input[name=address]")
       $phone = $("#deliveryInfo input[name=phone]")
       if $(this).is(':checked')
         $name.val name
         $name.prop 'readonly', yes
         $email.val email
         $email.prop 'readonly', yes
-        $address.val address
-        $address.prop 'readonly', yes
+        changeAddressInputs address
+        changeAddressInputsReadonly yes
         $phone.val phone
         $phone.prop 'readonly', yes
       else
         $name.prop 'readonly', no
         $email.prop 'readonly', no
-        $address.prop 'readonly', no
+        changeAddressInputsReadonly no
         $phone.prop 'readonly', no

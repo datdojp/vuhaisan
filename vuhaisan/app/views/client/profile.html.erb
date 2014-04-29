@@ -3,19 +3,42 @@
     <table cellpadding="10" style="margin-bottom: 10px;">
       <tr>
         <td align="right"><%= t("client.name") %>(*)</td>
-        <td><%= text_field_tag :name, @user.name, required: :required %></td>
+        <td>
+          <%= text_field_tag(
+                :name,
+                @user.name,
+                type: :text,
+                required: :required,
+                class: :text) %></td>
       </tr>
       <tr>
         <td align="right"><%= t("client.email") %></td>
-        <td><%= text_field_tag :email, @user.email, type: :email %></td>
+        <td>
+          <%= text_field_tag(
+                :email,
+                @user.email,
+                type: :email,
+                class: :text) %></td>
       </tr>
       <tr>
         <td align="right"><%= t("client.address") %>(*)</td>
-        <td><%= text_field_tag :address, @user.address, required: :required %></td>
+        <td>
+          <%= render(
+                partial: 'client/address',
+                locals: {
+                  address: @user.address,
+                  shipCostCallback: nil }) %>
+        </td>
       </tr>
       <tr>
         <td align="right"><%= t("client.phone") %>(*)</td>
-        <td><%= text_field_tag :phone, @user.phone, required: :required %></td>
+        <td>
+          <%= text_field_tag(
+                :phone,
+                @user.phone,
+                type: :tel,
+                required: :required,
+                class: :text) %></td>
       </tr>
     </table>
     <%= submit_tag t("client.update"), class: "blueButton" %>

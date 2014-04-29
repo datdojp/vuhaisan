@@ -16,19 +16,42 @@
       <table>
         <tr>
           <td class="label" align="right"><%= t("client.name") %>(*)</td>
-          <td><%= text_field_tag :name, @cart.name, required: :required %></td>
+          <td>
+            <%= text_field_tag(
+                  :name,
+                  nil,
+                  type: :text,
+                  required: :required,
+                  class: :text) %></td>
         </tr>
         <tr>
           <td class="label" align="right"><%= t("client.email") %></td>
-          <td><%= text_field_tag :email, @cart.email, type: :email %></td>
+          <td>
+            <%= text_field_tag(
+                  :email,
+                  nil,
+                  type: :email,
+                  class: :text) %></td>
         </tr>
         <tr>
           <td class="label" align="right"><%= t("client.address") %>(*)</td>
-          <td><%= text_field_tag :address, @cart.address, required: :required %></td>
+          <td>
+            <%= render(
+                  partial: 'address',
+                  locals: {
+                    address: nil,
+                    shipCostCallback: 'shipCostCallback' }) %>
+          </td>
         </tr>
         <tr>
           <td class="label" align="right"><%= t("client.phone") %>(*)</td>
-          <td><%= text_field_tag :phone, @cart.phone, required: :required %></td>
+          <td>
+            <%= text_field_tag(
+                  :phone,
+                  nil,
+                  type: :tel,
+                  required: :required,
+                  class: :text) %></td>
         </tr>
       </table>
       <div>
@@ -100,13 +123,21 @@
       "<%= client_remove_from_cart_remote_remote_path %>",
       "<%= @user.name %>",
       "<%= @user.email %>",
-      "<%= @user.address %>",
+      <%= @user.address.to_json.html_safe %>,
       "<%= @user.phone %>"
     );
   <% else %>
     cart(
       "<%= client_delete_cart_path %>",
       "<%= client_remove_from_cart_remote_remote_path %>",
-      null, null, null, null);
+      null,
+      null,
+      null,
+      null);
   <% end %>
+
+  function shipCostCallback(shipCost) {
+    changeOrderShipCost(shipCost);
+    updateOrderSum();
+  }
 </script>

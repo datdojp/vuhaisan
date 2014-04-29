@@ -1,0 +1,30 @@
+<%
+  id = SecureRandom.uuid
+  cssClass = '' if !cssClass
+%>
+<span id='<%= id %>' class='<%= cssClass %>'>
+</span>
+<script type="text/javascript">
+  (function() {
+    if (!window.changeCurrencyVal) {
+      window.changeCurrencyVal = function($elem, val) {
+        if (!(typeof val === 'number')) {
+          val = parseInt(val);
+        }
+        $elem.attr('data', val);
+        $elem.html(val.format(0, 3));
+      }
+    }
+    if (!window.getCurrencyVal) {
+      window.getCurrencyVal = function($elem) {
+        var val = $elem.attr('data');
+        if (typeof val === 'number') {
+          return val;
+        } else {
+          return parseInt(val);
+        }
+      }
+    }
+    changeCurrencyVal($('#<%= id %>'), <%= val %>)
+  }).call();
+</script>

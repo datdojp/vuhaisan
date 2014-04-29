@@ -1,4 +1,5 @@
-<table class="client_data_table" style="width:100%;">
+<% id = SecureRandom.uuid %>
+<table id='<%= id %>' class="client_data_table" style="width:100%;">
   <tr>
     <th><%= t("client.product_name") %></th>
     <th><%= t("client.price") %></th>
@@ -17,7 +18,9 @@
       <%= Product.get_unit_text i.unit %>
     </td>
     <td><%= i.quantity %></td>
-    <td class="total"><%= number_to_currency i.total, unit: "", precision: 0 %></td>
+    <td class="total">
+      <%= render partial: 'currency', locals: { val: i.total, cssClass: 'cost' } %>
+    </td>
     
     <% if order.step == Order::STEP_CARTING %>
     <td><%= image_tag "remove-from-cart.png", class: "removeFromCartButton", title: t("client.remove_from_cart"), data: i.id.to_s  %></td>
@@ -27,13 +30,27 @@
   <tr>
     <td colspan="3"><%= t "client.ship_cost" %></td>
     <td colspan="2" class="total sum" align="center">
-      <%= number_to_currency order.ship_cost, unit: "", precision: 0 %>
+      <%= render partial: 'currency', locals: { val: order.ship_cost, cssClass: 'cost shipCost' } %>
     </td>
   </tr>
   <tr>
     <td colspan="3" class="sumText"><%= t("client.sum") %></td>
     <td colspan="2" class="total sum" align="center">
-      <%= number_to_currency order.sum, unit: "", precision: 0 %>
+      <%= render partial: 'currency', locals: { val: order.sum, cssClass: 'orderSum' } %>
     </td>
   </tr>
 </table>
+
+<script type="text/javascript">
+  function changeOrderShipCost(shipCost) {
+    changeCurrencyVal($('#<%= id %> .shipCost'), shipCost);
+  }
+
+  function updateOrderSum() {
+    var sum = 0;
+    $('#<%= id %> .cost').each(function(index, element) {
+      sum += getCurrencyVal($(element));
+    });
+    changeCurrencyVal($('#<%= id %> .orderSum'), sum);
+  }
+</script>

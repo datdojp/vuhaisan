@@ -124,13 +124,27 @@ class ClientController < ApplicationController
     
     @cart.name = params[:name]
     @cart.email = params[:email]
-    @cart.address = params[:address]
     @cart.phone = params[:phone]
     @cart.payment = payment
     @cart.step = Order::STEP_SENT
     if @user
       @cart.user = @user
     end
+
+    # generate address
+    arr = [params[:address][:detail]]
+    arr << params[:address][:district] if params[:address][:district]
+    arr << params[:address][:province]
+    @cart.address = arr.join(", ")
+
+    # generate ship cost
+    location_data_lv1 = LOCATION_DATA[params[:address][:province]]
+    if location_data_lv1.is_a?(Integer)
+      @cart.ship_cost = location_data_lv1
+    elsif location_data_lv1.is_a?(Hash)
+      @cart.ship_cost = location_data_lv1[params[:address][:district]]
+    end
+
     @cart.save
 
     if payment == Order::PAYMENT_VTC_PAY
