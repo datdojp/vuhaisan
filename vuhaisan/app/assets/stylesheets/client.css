@@ -48,11 +48,14 @@
 #menuBar #searchBox {
   float: right;
   margin-right: 30px;
-  margin-top: 14px;
+  margin-top: 12px;
 }
 
 #menuBar #searchBox input {
-  width: 200px;
+  width: 250px;
+  height: 20px;
+  font-size: 10pt;
+  padding: 2px 2px 2px 2px;
 }
 
 #menuBar #userInfo {

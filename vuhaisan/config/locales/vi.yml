@@ -106,7 +106,7 @@ vi:
     finished_at: "Thời điểm kết thúc"
     canceled_at: "Thời điểm huỷ"
     history: "Lịch sử giao dịch"
-    search: "Tìm kiếm"
+    search: "Tìm kiếm, ví dụ: \"hai san, con hang\""
     order:
       step:
         carting: "Đang chọn hàng"
