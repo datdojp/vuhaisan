@@ -45,6 +45,16 @@
   color: white !important;
 }
 
+#menuBar #searchBox {
+  float: right;
+  margin-right: 30px;
+  margin-top: 14px;
+}
+
+#menuBar #searchBox input {
+  width: 200px;
+}
+
 #menuBar #userInfo {
   float: right;
   padding-right: 20px;
@@ -76,7 +86,7 @@
 }
 
 #menuBar #userInfo .fbAccount {
-  margin-left: 100px;  
+  margin-left: 30px;  
   height: 50px;
 }
 

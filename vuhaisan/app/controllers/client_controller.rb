@@ -30,7 +30,14 @@ class ClientController < ApplicationController
   end
 
   def home
-    @products = Product.where(category_id: @category_id).page(params[:page]).per(10)
+    @keyword = params[:keyword]
+    if @keyword && @keyword.length > 0
+      criteria = Product.general_search @keyword
+    else
+      criteria = Product.where(category_id: @category_id)
+    end
+
+    @products = criteria.page(params[:page]).per(10)
     @title = I18n.t("client.home")
     render "client/home"
   end

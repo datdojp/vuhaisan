@@ -45,6 +45,7 @@
       <% end %>
       </div>
     </div>
+
     <div id="userInfo">
       <a href="<%= client_cart_detail_path %>">
         <div class="col cart_image"><%= image_tag "cart.png" %></div>
@@ -59,6 +60,12 @@
         <button class="loginButton blueButton"><%= t("client.login") %></button>
       </div>
       </a>
+    </div>
+
+    <div id='searchBox'>
+      <%= form_tag client_home_path, method: :get do %>
+        <%= text_field_tag :keyword, @keyword, placeholder: t('client.search') %>
+      <% end %>
     </div>
   </div>
 
