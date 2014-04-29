@@ -19,7 +19,7 @@ Vuhaisan::Application.routes.draw do
     match "pay", to: "client#pay", as: :client_pay
     match "profile", to: "client#profile", as: :client_profile
     match "update_profile", to: "client#update_profile", as: :client_update_profile
-    match "login", to: "client#login", as: :client_login, format: :json
+    match "login_remote", to: "client#login_remote", as: :client_login_remote, format: :js
     match "logout", to: "client#logout", as: :client_logout
     match "logout_remote", to: "client#logout_remote", as: :client_logout_remote
     match "update_order_delivery_info", to: "client#update_order_delivery_info", as: :client_update_order_delivery_info

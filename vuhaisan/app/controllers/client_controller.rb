@@ -165,9 +165,9 @@ class ClientController < ApplicationController
     redirect_to client_home_path
   end
 
-  def login
+  def login_remote
     session[:fb_id] = params[:fb_id]
-    render "client/login"
+    render "client/remote/login_remote"
   end
 
   def logout

@@ -9,7 +9,7 @@ Number.prototype.format = function(n, x) {
 };
 `
 
-window.onFbAsyncInit = (loginPath, logoutRemotePath) ->
+window.onFbAsyncInit = (loginRemotePath, logoutRemotePath) ->
   checkLoginStatus = ->
     FB.getLoginStatus (response) ->
       $name = $("#userInfo .fbAccount .name")
@@ -21,7 +21,7 @@ window.onFbAsyncInit = (loginPath, logoutRemotePath) ->
         $loginButton.hide()
         
         fbId = response.authResponse.userID
-        $.ajax(url: "#{loginPath}?fb_id=#{fbId}")
+        $.ajax(url: "#{loginRemotePath}?fb_id=#{fbId}")
 
         FB.api "/me", fields:"name,picture", (response) ->
           $name.html(response.name)
