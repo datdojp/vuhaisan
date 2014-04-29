@@ -1,3 +1,21 @@
+<%= form_tag(
+      users_path,
+      method: 'get',
+      role: 'form',
+      class: 'form-inline') do %>
+  <div class="form-group">
+    <%= text_field_tag :keyword, @keyword, class: 'form-control' %>
+  </div>
+  <%= submit_tag t("admin.search"), class: 'btn btn-primary' %>
+  <%= submit_tag(
+        t("admin.clear"),
+        class: 'btn btn-danger',
+        onclick: "location.href='#{users_path}';return false;") %>
+<% end %>
+<p><%= t "admin.user_search_hint" %></p>
+
+<br/>
+
 <%= paginate @users %>
 
 <table class="table table-hover table-bordered table-striped table-condensed">

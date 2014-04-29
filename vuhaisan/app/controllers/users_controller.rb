@@ -12,8 +12,16 @@ class UsersController < ApplicationController
   end
 
   def index
+    @keyword = params[:keyword]
+    if @keyword
+      criteria = User.general_search @keyword
+    else
+      criteria = User.all
+    end
+    
+    @users = criteria.page(params[:page]).per(10)
+
     @title = I18n.t "admin.user_list"
-    @users = User.all.page(params[:page]).per(10)
     render "admin/user/index"
   end
 end

@@ -62,6 +62,7 @@ vi:
     payment_failure_reason: "Nguyên nhân thanh toán thất bại"
     remove_from_cart: "Xóa khỏi giỏ hàng"
     product_name: "Tên sản phẩm"
+    user_search_hint: "Tìm kiếm theo: tên, email, địa chỉ, điện thoại, faceook ID"
   client:
     in_store: "Còn hàng"
     not_in_store: "Hết hàng"

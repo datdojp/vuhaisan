@@ -7,7 +7,17 @@ class User
   field :phone, type: String
   field :email, type: String
 
+  field :data, type: String
+  field :flattened_data, type: String
+
   has_many :orders, class_name: Order.name, inverse_of: :user
+
+  before_save do |document|
+    a = get_search_data document, [
+      :fb_id, :name, :email, :address, :phone]
+    document.data = a[0]
+    document.flattened_data = a[1]
+  end
 
   def order_count_for_each_step
   	ret = {}
@@ -33,5 +43,9 @@ class User
   	else
   	  0
   	end
+  end
+
+  def self.general_search(keyword)
+    User.where get_search_criteria(keyword)
   end
 end
