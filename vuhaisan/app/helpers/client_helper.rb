@@ -1,6 +1,9 @@
 module ClientHelper
   def prepare_categories
     @categories = Category.all.to_a
+  end
+
+  def prepare_selected_categories
     @category_id =
       params[:category_id] ||
       Category.all.only(:id).order_by([[:name, :asc]]).first.id.to_s

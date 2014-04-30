@@ -14,6 +14,7 @@ class ClientController < ApplicationController
     :pay,
     :order
   ]
+  before_filter :prepare_selected_categories, only: [:home]
   before_filter :prepare_profile, only: [
     :profile,
     :update_profile,
@@ -33,6 +34,7 @@ class ClientController < ApplicationController
     @keyword = params[:keyword]
     if @keyword && @keyword.length > 0
       criteria = Product.general_search @keyword
+      @category_id = nil
     else
       criteria = Product.where(category_id: @category_id)
     end
