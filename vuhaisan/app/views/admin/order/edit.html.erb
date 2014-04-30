@@ -119,7 +119,7 @@
     <tr>
       <td colspan="3"><%= t "admin.ship_cost" %></td>
       <td align="center">
-        <%= number_to_currency @order.ship_cost, unit: "", precision: 0 %>
+        <%= f.text_field :ship_cost, required: :required, type: :number %>
       </td>
     </tr>
     <tr>
