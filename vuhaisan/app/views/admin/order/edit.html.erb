@@ -1,29 +1,9 @@
 <%= form_for(@order, role: 'form') do |f| %>
-  <div class='well'>
-    <% if @order.user %>
-      <%= render partial: 'admin/user_fb', locals: {user: @order.user} %>
-      <br/>
-      <br/>
-    <% end %>
 
-    <div class="form-group">
-      <label><%= t "admin.name" %>(*)</label>
-      <%= f.text_field :name, required: :required, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <label><%= t "admin.email" %></label>
-      <%= f.text_field :email, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <label><%= t "admin.address" %>(*)</label>
-      <%= f.text_field :address, required: :required, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <label><%= t "admin.phone" %>(*)</label>
-      <%= f.text_field :phone, required: :required, class: 'form-control' %>
-    </div>
-  </div>
-
+  <%= f.submit t('admin.edit'), class: 'btn btn-warning' %>
+  <br/>
+  <br/>
+  
   <div class='well'>
     <div class="form-group">
       <label><%= t "admin.payment" %></label>
@@ -93,6 +73,31 @@
       <label><%= t "admin.history" %></label>
       <%= render partial: 'common/order_history', locals: { order: @order } %>
     <% end %>
+  </div>
+
+  <div class='well'>
+    <% if @order.user %>
+      <%= render partial: 'admin/user_fb', locals: {user: @order.user} %>
+      <br/>
+      <br/>
+    <% end %>
+
+    <div class="form-group">
+      <label><%= t "admin.name" %>(*)</label>
+      <%= f.text_field :name, required: :required, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <label><%= t "admin.email" %></label>
+      <%= f.text_field :email, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <label><%= t "admin.address" %>(*)</label>
+      <%= f.text_field :address, required: :required, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <label><%= t "admin.phone" %>(*)</label>
+      <%= f.text_field :phone, required: :required, class: 'form-control' %>
+    </div>
   </div>
   
   <table class="table table-hover table-bordered table-striped table-condensed">
