@@ -10,13 +10,11 @@ Number.prototype.format = function(n, x) {
 `
 
 window.client = ->
-  $(window).bind "resize", ->
+  $('#banner').load ->
     docHeight = $(document).height()
     contentDivTop = $('#contentDiv').position().top
     footerHeight = $('#footer').height()
     $('#contentDiv').css 'min-height', "#{docHeight - contentDivTop - footerHeight}px"
-
-  $ -> $(window).trigger "resize"
 
 window.onFbAsyncInit = (loginRemotePath, logoutRemotePath) ->
   checkLoginStatus = ->
