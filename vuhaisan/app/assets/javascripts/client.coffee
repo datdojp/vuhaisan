@@ -9,6 +9,15 @@ Number.prototype.format = function(n, x) {
 };
 `
 
+window.client = ->
+  $(window).bind "resize", ->
+    docHeight = $(document).height()
+    contentDivTop = $('#contentDiv').position().top
+    footerHeight = $('#footer').height()
+    $('#contentDiv').css 'min-height', "#{docHeight - contentDivTop - footerHeight}px"
+
+  $ -> $(window).trigger "resize"
+
 window.onFbAsyncInit = (loginRemotePath, logoutRemotePath) ->
   checkLoginStatus = ->
     FB.getLoginStatus (response) ->

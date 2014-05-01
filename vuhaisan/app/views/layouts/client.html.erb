@@ -71,9 +71,15 @@
 
   <div id="header_seperator"> </div>
 
-  <%= yield %>
+  <div id="contentDiv">
+    <%= yield %>
+  </div>
 
   <%= render partial: 'layouts/client_footer' %>
+
+  <script type="text/javascript">
+    client();
+  </script>
 
 </body>
 </html>
