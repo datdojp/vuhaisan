@@ -2,7 +2,9 @@
 === COMMON ===
 */
 body {
-  overflow: scroll
+  overflow: scroll;
+  margin: 0px;
+  padding: 0px;
 }
 
 #menuBar {
