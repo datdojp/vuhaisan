@@ -3,12 +3,14 @@
 <br/>
 <table class="table table-hover table-bordered table-striped table-condensed">
   <tr>
+    <th>No</th>
     <th><%= t "admin.name" %></th>
     <th><%= t "admin.n_products" %></th>
     <th></th>
   </tr>
-  <% @categories.each do |c| %>
+  <% @categories.each_with_index do |c, index| %>
     <tr>
+      <td><%= c.no %></td>
       <td><%= c.name %></td>
       <td><%= link_to c.products.length, products_path(keyword: c.name) %></td>
       <td>
@@ -18,12 +20,38 @@
               method: :get,
               class: 'btn btn-warning',
               style: 'float:left; margin-right:10px;') %>
+
         <%= button_to(
               t("admin.delete"),
               c,
               method: :delete,
               onclick: "return confirm('#{t("admin.confirm_delete")}');",
-              class: 'btn btn-danger')%>
+              class: 'btn btn-danger',
+              style: 'float:left; margin-right:10px;') %>
+        
+        <button class="btn btn-default" style='float:left; margin-right:10px;'
+                <% if index > 0 %>
+                onclick="location.href='<%= admin_categories_index_update_path(id: c.id, update: :up) %>'"
+                <% end %>>
+          <span class="glyphicon glyphicon-chevron-up"></span>
+        </button>
+
+        <button class="btn btn-default" style='float:left; margin-right:10px;'
+                <% if index < @categories.length - 1 %>
+                onclick="location.href='<%= admin_categories_index_update_path(id: c.id, update: :down) %>'"
+                <% end %>>
+          <span class="glyphicon glyphicon-chevron-down"></span>
+        </button>
+
+        <button class="btn btn-default" style='float:left;'
+                onclick="location.href='<%= admin_categories_index_update_path(id: c.id, update: :toggle_hidden) %>'">
+          <% if c.hidden %>
+            <span class="glyphicon glyphicon-eye-close"></span>
+          <% else %>
+            <span class="glyphicon glyphicon-eye-open"></span>
+          <% end %>
+        </button>        
+        
       </td>
     </tr>
   <% end %>

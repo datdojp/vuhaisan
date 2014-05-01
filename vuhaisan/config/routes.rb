@@ -7,6 +7,7 @@ Vuhaisan::Application.routes.draw do
     resources :users, only: [:index]
     resources :orders, only: [:index, :edit, :update]
     match "logout", to: "admin_sessions#logout", as: :admin_logout
+    match "categories_index_update/:id", to: "categories#categories_index_update", as: :admin_categories_index_update
   end
 
   scope "client" do
