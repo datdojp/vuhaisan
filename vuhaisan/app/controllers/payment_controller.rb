@@ -4,6 +4,7 @@ class PaymentController < ApplicationController
   include ClientHelper
 
   before_filter :prepare_categories
+  before_filter :prepare_cart
   before_filter :prepare_profile
 
   layout "client"
@@ -55,6 +56,9 @@ class PaymentController < ApplicationController
     end
 
     if @order
+      if @order.should_mail?
+        UserMailer.order_changed_email(@order).deliver
+      end
       @order.save
     end
 
