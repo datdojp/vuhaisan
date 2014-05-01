@@ -260,6 +260,29 @@ body {
   margin-left: 10px;
 }
 
+#productList .footer .fb-comment-count {
+  float:left;
+  margin-left: 20px;
+}
+
+#productList .footer .fb-comment-count img {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+  margin-top: 3px;
+}
+
+#productList .footer .fb-comment-count .count {
+  margin-top: 7px;
+}
+
+#productList .footer .fb-comment-count .count span {
+  color: white;
+  font-size: 11pt;
+  font-style: normal;
+  font-weight: bold;
+}
+
 #productList .footer .addToCartButton {
   float: right;
   cursor: pointer;
