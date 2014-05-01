@@ -200,6 +200,19 @@ body {
   color: black;
 }
 
+#footer {
+  background: black;
+  width: 100%;
+  height: 85px;
+  clear: both;
+  padding-left: 15px;
+  padding-top: 10px;
+  color: #D5ECCD;
+  font-size: 12pt;
+  line-height: 18px;
+}
+
+
 /*
 === HOME ===
 */
