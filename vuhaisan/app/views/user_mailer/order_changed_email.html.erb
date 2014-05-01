@@ -1,0 +1,99 @@
+<%
+  message.subject = t('client.mailer.subject') % @order.code
+  host = 'http://pari.vn'
+  changed = 'style="color:red;"'.html_safe
+  # host = "http://localhost:3000"
+%>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Xin chào khách hàng <b><%= @order.name %></b>,</p>
+    <p>
+      Xin cảm ơn quý khách đã sử dụng <a href="<%= host %>">pari.vn</a>.
+      &nbsp;
+      Đơn hàng <a href="<%= "#{host}#{client_order_path(@order.code)}" %>"><%= @order.code %></a> của quý khách đã có sự thay đổi:
+    </p>
+
+    <b><%= t "client.code" %>:</b>
+    &nbsp;
+    <span><%= @order.code %></span>
+    <br/>
+    
+    <b><%= t "client.payment_method" %>:</b>
+    &nbsp;
+    <span
+      <% if @order.payment_changed? %>
+        <%= changed %>
+      <% end %>
+    ><%= @order.payment_as_text %></span>
+    <br/>
+
+    <b><%= t "client.status" %>:</b>
+    &nbsp;
+    <span
+      <% if @order.step_changed? %>
+        <%= changed %>
+      <% end %>
+    ><%= @order.step_as_text %></span>
+    <br/>
+
+    <b><%= t "client.name" %>:</b>
+    &nbsp;
+    <span
+      <% if @order.name_changed? %>
+        <%= changed %>
+      <% end %>
+    ><%= @order.name %></span>
+    <br/>
+
+    <b><%= t "client.email" %>:</b>
+    &nbsp;
+    <span
+      <% if @order.email_changed? %>
+        <%= changed %>
+      <% end %>
+    ><%= @order.email %></span>
+    <br/>
+
+    <b><%= t "client.address" %>:</b>
+    &nbsp;
+    <span
+      <% if @order.address_changed? %>
+        <%= changed %>
+      <% end %>
+    ><%= @order.address %></span>
+    <br/>
+
+    <b><%= t "client.phone" %>:</b>
+    &nbsp;
+    <span
+      <% if @order.phone_changed? %>
+        <%= changed %>
+      <% end %>
+    ><%= @order.phone %></span>
+    <br/>
+
+    <b><%= t "client.ship_cost" %>:</b>
+    &nbsp;
+    <span
+      <% if @order.ship_cost_changed? %>
+        <%= changed %>
+      <% end %>
+    ><%= format_currency(@order.ship_cost) %></span>
+    <br/>
+
+    <p>Chi tiết đơn hàng:</p>
+    <ul>
+    <% @order.items.each do |i| %>
+      <li><%= "#{i.name}, #{format_currency(i.price)}/#{i.unit_as_text}, #{i.quantity} #{i.unit_as_text} => #{format_currency(i.total)}" %> </li>
+    <% end %>
+    </ul>
+    <p>Tổng cộng: <%= format_currency(@order.sum) %></p>
+
+    <p>Xin cảm ơn quý khách. Chúc quý khách một ngày tốt lành.</p>
+  </body>
+</html>

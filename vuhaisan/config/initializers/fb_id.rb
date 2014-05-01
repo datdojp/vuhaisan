@@ -204,3 +204,7 @@ def get_location_select(data)
   end
   ret
 end
+
+def format_currency(amount)
+  number_to_currency amount, unit: "", precision: 0
+end

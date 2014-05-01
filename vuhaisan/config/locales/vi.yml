@@ -128,3 +128,6 @@ vi:
         invalid_website_id: "Website ID không đúng"
         invalid_sign: "Dữ liệu truyền không hợp lệ. Có khả năng đường truyền không còn an toàn. Hãy ngừng mọi giao dịch và báo cho chủ website ngay lập tức"
         success: "Giao dịch thành công. Xin cảm ơn quý khách"
+    mailer:
+      subject: "[pari.vn] Thông báo: đơn hàng %s đã thay đổi"
+

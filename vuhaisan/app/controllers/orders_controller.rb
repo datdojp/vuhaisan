@@ -49,7 +49,11 @@ class OrdersController < ApplicationController
   def update
     @order = Order.where(id: params[:id]).first
     if @order
-      @order.update_attributes params[:order]
+      @order.assign_attributes params[:order]
+      if @order.should_mail?
+        UserMailer.order_changed_email(@order).deliver
+      end
+      @order.save
     end
     redirect_to orders_path
   end

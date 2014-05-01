@@ -147,6 +147,11 @@ class ClientController < ApplicationController
       @cart.ship_cost = location_data_lv1[params[:address][:district]]
     end
 
+    # notify user by email
+    if @cart.should_mail?
+      UserMailer.order_changed_email(@cart).deliver
+    end
+
     @cart.save
 
     if payment == Order::PAYMENT_VTC_PAY

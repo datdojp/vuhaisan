@@ -125,7 +125,7 @@ class Order
   end
 
   def payment_as_text
-    Order.get_payment_as_text payment
+    self.class.get_payment_as_text payment
   end
 
   def self.general_search(keyword)
@@ -138,5 +138,14 @@ class Order
     else
       nil
     end
+  end
+
+  def should_mail?
+    if !email || email.length == 0 || !changed? || step == STEP_CARTING
+      return false
+    end
+
+    return step_changed? || name_changed? || email_changed? || address_changed? || phone_changed? ||
+        payment_changed? || ship_cost_changed?
   end
 end
