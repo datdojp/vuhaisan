@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require moment
+//= require bxslider
 
 `
 Number.prototype.format = function(n, x) {
