@@ -47,5 +47,12 @@
     <hr/>
 
     <%= render partial: "order_item_list", locals: {order: @order} %>
+
+    <br/>
+    
+    <% if @order.payment == Order::PAYMENT_VTC_PAY && @order.step < Order::STEP_PAID %>
+      <%= button_to  t("client.pay"), get_vtc_pay_url(@order), class: "blueButton" %>
+    <% end %>
+
   </div>
 </div>
