@@ -5,7 +5,7 @@ class Product
   field :unit, type: String # kg, lit, cai, v.v...
   field :price, type: Integer
   field :quantity, type: Integer
-  field :image, type: String
+  field :images, type: Array
   field :desc, type: String
 
   field :data, type: String
@@ -33,14 +33,22 @@ class Product
     Product.get_unit_text unit
   end
 
-  def get_image_url
-    "/uploads/#{image}"
+  def self.is_local_image?(img)
+    img && /^\/uploads\/.+$/.match(img)
   end
 
-  def delete_image
-    if image
+  def self.is_remote_image?(img)
+    img && /^[hH][tT][tT][pP][sS]?:\/\/.+\/.+$/.match(img)
+  end
+
+  def has_image?
+    images && images.length > 0
+  end
+
+  def self.delete_image(img)
+    if Product.is_local_image?(img)
       begin
-        File.delete("#{Rails.root}/public/uploads/#{image}")
+        File.delete("#{Rails.root}/public#{img}")
       rescue
         # ignored
       end

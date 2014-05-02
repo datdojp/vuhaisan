@@ -1,6 +1,8 @@
 <div id="product_detail">
   <div class="col1">
-    <img src="<%= @product.get_image_url %>"/>
+    <% if @product.has_image? %>
+      <img src="<%= @product.images[0] %>"/>
+    <% end %>
   </div>
   <div class="col2">
     <div class="info">

@@ -22,7 +22,9 @@
         <%= render partial: "product_info", locals: {product: p} %>
       </div>
       <div class="col2">
-        <img src="<%= p.get_image_url %>"/>
+        <% if p.has_image? %>
+          <img src="<%= p.images[0] %>"/>
+        <% end %>
       </div>
     </div>
   </a>

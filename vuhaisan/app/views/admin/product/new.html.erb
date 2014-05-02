@@ -5,14 +5,8 @@
       html: { :multipart => true },
       role: 'form') do |f| %>
 
-  <div class="form-group">
-    <label><%= t "admin.image" %></label>
-    <br/>
-    <button class="btn btn-default" onclick="$('#file').click();return false;">
-      ...
-    </button>
-    <%= f.file_field :image, required: :required, style: 'display:none', id: 'file' %>
-  </div>
+  <%= render partial: 'admin/product/images' %>
+
   <div class="form-group">
     <label><%= t "admin.name" %></label>
     <%= f.text_field :name, required: :required, class: 'form-control' %>
@@ -65,3 +59,7 @@
   </div>
   <%= f.submit t("admin.create"), class: 'btn btn-success' %>
 <% end %>
+
+<script type="text/javascript">
+  productNewEdit();
+</script>

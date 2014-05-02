@@ -19,13 +19,23 @@ class ProductsController < ApplicationController
   end
 
   def save_image
-    data = params[:product][:image]
-    if data
-      filename = SecureRandom.hex
-      File.open(Rails.root.join('public', 'uploads', filename), 'wb') do |file|
-        file.write(data.read)
+    params[:product][:images] = []
+    params.keys.each do |k|
+      if /^_image_\d+$/.match k
+        data = params[k]
       end
-      params[:product][:image] = filename
+      if data && data.is_a?(ActionDispatch::Http::UploadedFile)
+        filename = SecureRandom.hex
+        File.open(Rails.root.join('public', 'uploads', filename), 'wb') do |file|
+          file.write(data.read)
+        end
+        params[:product][:images] << "/uploads/#{filename}"
+      elsif data && data.is_a?(String)
+        data.strip!
+        if Product.is_remote_image?(data) || Product.is_local_image?(data)
+          params[:product][:images] << data
+        end
+      end
     end
   end
 
@@ -66,8 +76,13 @@ class ProductsController < ApplicationController
   def update
     @product = Product.where(id: params[:id]).first
     if @product
-      if params[:product][:image]
-        @product.delete_image
+      if @product.has_image?
+        removed = []
+        @product.images.each do |i|
+          if  Product.is_local_image?(i) && !params[:product][:images].find_index(i)
+            Product.delete_image i
+          end
+        end
       end
       @product.update_attributes params[:product]
     end

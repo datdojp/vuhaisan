@@ -33,7 +33,11 @@
   </tr>
   <% @products.each do |p| %>
     <tr>
-      <td><a href="<%=p.get_image_url%>"><img src="<%=p.get_image_url%>" height="50" /></a></td>
+      <td>
+        <% if p.has_image? %>
+          <a href="<%= p.images[0] %>"><img src="<%= p.images[0] %>" height="50" /></a>
+        <% end %>
+      </td>
       <td><%= p.name %></td>
       <td><%= Product.get_unit_text p.unit %></td>
       <td><%= number_to_currency p.price, unit: "", precision: 0 %></td>
