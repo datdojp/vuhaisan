@@ -1,4 +1,6 @@
 @import 'bxslider';
+@import 'glisse';
+@import 'pagination';
 
 /*
 === COMMON ===
@@ -341,6 +343,10 @@ body {
   width: 60%;
   position: relative;
   left: 20%;
+}
+
+#product_detail .productImage {
+  cursor: pointer;
 }
 
 #product_detail .col1 {

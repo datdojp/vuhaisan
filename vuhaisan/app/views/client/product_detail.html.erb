@@ -1,7 +1,38 @@
 <div id="product_detail">
   <div class="col1">
     <% if @product.has_image? %>
-      <img src="<%= @product.images[0] %>"/>
+      <img  src="<%= @product.images[0] %>"
+            data-glisse-big="<%= @product.images[0] %>"
+            class="productImage"
+            rel="group1" />
+      <% if @product.images.length > 1 %>
+        <% @product.images.each_with_index do |img, index| %>
+          <% next if index == 0 %>
+          <% if index % 2 == 1 %>
+            <img  src="<%= img %>"
+                  data-glisse-big="<%= img %>"
+                  class="productImage"
+                  style="clear:both;float:left;width:50%"
+                  rel="group1" />
+          <% else %>
+            <img  src="<%= img %>"
+                  data-glisse-big="<%= img %>"
+                  class="productImage"
+                  style="float:left;width:50%"
+                  rel="group1" />
+          <% end %>
+        <% end %>
+      <% end %>
+      <script type="text/javascript">
+        $(function() {
+          $(".productImage").glisse({
+            changeSpeed: 550, 
+            speed: 500,
+            effect:'rotate',
+            fullscreen: false
+          });
+        });
+      </script>
     <% end %>
   </div>
   <div class="col2">
