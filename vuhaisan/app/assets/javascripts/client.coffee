@@ -11,7 +11,7 @@ Number.prototype.format = function(n, x) {
 `
 
 window.client = ->
-  $('#banner').load ->
+  $('.bannerImg').load ->
     docHeight = $(document).height()
     contentDivTop = $('#contentDiv').position().top
     footerHeight = $('#footer').height()

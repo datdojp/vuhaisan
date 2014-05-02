@@ -30,19 +30,19 @@
     }(document, 'script', 'facebook-jssdk'));
   </script>
 
-  <ul class="bxslider" style="width:100%;">
-    <li><%= image_tag "bannera.png", id: 'banner', style: "width: 100%;" %></li>
-    <li><%= image_tag "bannerb.png", id: 'banner', style: "width: 100%;" %></li>
+  <ul class="bxslider">
+    <li><%= image_tag "bannera.png", class: 'bannerImg' %></li>
+    <li><%= image_tag "bannerb.png", class: 'bannerImg' %></li>
   </ul>
 
   <script type="text/javascript">
     $('.bxslider').bxSlider({
       auto: true,
       controls: false,
+      pager: false,
       speed: 1000,
-      adaptiveHeight: true,
       useCSS: true,
-      pager: false
+      autoHover: true
     });
   </script>
 
