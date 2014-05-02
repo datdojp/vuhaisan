@@ -1,49 +1,51 @@
 <div id="profileDetail" align="center">
-  <%= form_tag client_update_profile_path, method: "post" do %>
-    <table cellpadding="10" style="margin-bottom: 10px;">
-      <tr>
-        <td align="right"><%= t("client.name") %>(*)</td>
-        <td>
-          <%= text_field_tag(
-                :name,
-                @user.name,
-                type: :text,
-                required: :required,
-                class: :text) %></td>
-      </tr>
-      <tr>
-        <td align="right"><%= t("client.email") %></td>
-        <td>
-          <%= text_field_tag(
-                :email,
-                @user.email,
-                type: :email,
-                class: :text) %></td>
-      </tr>
-      <tr>
-        <td align="right"><%= t("client.address") %>(*)</td>
-        <td>
-          <%= render(
-                partial: 'client/address',
-                locals: {
-                  address: @user.address,
-                  shipCostCallback: nil }) %>
-        </td>
-      </tr>
-      <tr>
-        <td align="right"><%= t("client.phone") %>(*)</td>
-        <td>
-          <%= text_field_tag(
-                :phone,
-                @user.phone,
-                type: :tel,
-                required: :required,
-                class: :text) %></td>
-      </tr>
-    </table>
-    <%= submit_tag t("client.update"), class: "blueButton" %>
-    <button id="logoutButton" class="redButton" style="margin-left:20px;"><%= t("client.logout") %></button>
-  <% end %>
+  <div class="well" style="width:60%;">
+    <%= form_tag client_update_profile_path, method: "post" do %>
+      <table cellpadding="10" style="margin-bottom: 10px;">
+        <tr>
+          <td align="right"><b><%= t("client.name") %>(*)</b></td>
+          <td>
+            <%= text_field_tag(
+                  :name,
+                  @user.name,
+                  type: :text,
+                  required: :required,
+                  class: :text) %></td>
+        </tr>
+        <tr>
+          <td align="right"><b><%= t("client.email") %></b></td>
+          <td>
+            <%= text_field_tag(
+                  :email,
+                  @user.email,
+                  type: :email,
+                  class: :text) %></td>
+        </tr>
+        <tr>
+          <td align="right"><b><%= t("client.address") %>(*)</b></td>
+          <td>
+            <%= render(
+                  partial: 'client/address',
+                  locals: {
+                    address: @user.address,
+                    shipCostCallback: nil }) %>
+          </td>
+        </tr>
+        <tr>
+          <td align="right"><b><%= t("client.phone") %>(*)</b></td>
+          <td>
+            <%= text_field_tag(
+                  :phone,
+                  @user.phone,
+                  type: :tel,
+                  required: :required,
+                  class: :text) %></td>
+        </tr>
+      </table>
+      <%= submit_tag t("client.update"), class: "blueButton" %>
+      <button id="logoutButton" class="redButton" style="margin-left:20px;"><%= t("client.logout") %></button>
+    <% end %>
+  </div>
 
   <br/>
   <br/>
@@ -63,7 +65,10 @@
         <td><%= o.desc %></td>
         <td><%= number_to_currency o.ship_cost, unit: "", precision: 0 %></td>
         <td><%= number_to_currency o.sum, unit: "", precision: 0 %></td>
-        <td><%= o.step_as_text %></td>
+        <td>
+          <%= o.step_as_text %>
+          <%= link_to '[?]', "#{client_info_path}#steps_desc", target: '_blank' %>
+        </td>
       </tr>
     <% end %>
   </table>

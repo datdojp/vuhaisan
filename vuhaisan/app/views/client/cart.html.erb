@@ -86,18 +86,21 @@
               Order::PAYMENT_AT_DELIVERIED,
               Order::PAYMENT_AT_DELIVERIED == @cart.payment) %>
         <%= Order.get_payment_as_text Order::PAYMENT_AT_DELIVERIED %>
+        <%= link_to '[?]', "#{client_info_path}#pay_at_delivery", target: '_blank' %>
         <br/>
         <%= radio_button_tag(
               :payment,
               Order::PAYMENT_BANK_TRANSFER,
               Order::PAYMENT_BANK_TRANSFER == @cart.payment) %>
         <%= Order.get_payment_as_text Order::PAYMENT_BANK_TRANSFER %>
+        <%= link_to '[?]', "#{client_info_path}#pay_bank_transfer", target: '_blank' %>
         <br/>
         <%= radio_button_tag(
               :payment,
               Order::PAYMENT_VTC_PAY,
               Order::PAYMENT_VTC_PAY == @cart.payment) %>
         <%= Order.get_payment_as_text Order::PAYMENT_VTC_PAY %>
+        <%= link_to '[?]', "#{client_info_path}#pay_vtc", target: '_blank' %>
       </div>
     </td></tr>
 

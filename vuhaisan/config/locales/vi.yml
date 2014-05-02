@@ -107,6 +107,8 @@ vi:
     canceled_at: "Thời điểm huỷ"
     history: "Lịch sử giao dịch"
     search: "Tìm kiếm, ví dụ: \"hai san, con hang\""
+    steps_desc: "Các bước đặt hàng"
+    info: "Thông tin"
     order:
       step:
         carting: "Đang chọn hàng"

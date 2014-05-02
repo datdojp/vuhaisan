@@ -13,5 +13,13 @@
   <%= f.text_area :payment_bank_transfer, class: "ckeditor form-control" %>
 
   <hr/>
+  <label><%= t("client.pay_vtc") %></label>
+  <%= f.text_area :payment_vtc_pay, class: "ckeditor form-control" %>
+
+  <hr/>
+  <label><%= t("client.steps_desc") %></label>
+  <%= f.text_area :steps_desc, class: "ckeditor form-control" %>
+
+  <hr/>
   <%= f.submit t("admin.edit"), class: 'btn btn-warning' %>
 <% end %>

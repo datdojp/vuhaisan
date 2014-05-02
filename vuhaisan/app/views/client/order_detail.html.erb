@@ -12,7 +12,10 @@
       </tr>
       <tr>
         <td class="label" align="right"><%= t "client.status" %></td>
-        <td><%= @order.step_as_text %></td>
+        <td>
+          <%= @order.step_as_text %>
+          <%= link_to '[?]', "#{client_info_path}#steps_desc", target: '_blank' %>
+        </td>
       </tr>
 
       <tr>

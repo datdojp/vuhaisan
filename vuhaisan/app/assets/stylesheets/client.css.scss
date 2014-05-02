@@ -10,6 +10,10 @@
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 }
 
+a {
+  text-decoration: none !important;
+}
+
 .bx-wrapper,
 .bx-wrapper * {
   margin: 0px !important;
@@ -238,6 +242,16 @@ body {
   color: #D5ECCD;
   font-size: 12pt;
   line-height: 18px;
+}
+
+.well {
+    background-color: #F5F5F5;
+    border: 1px solid #E3E3E3;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    margin-bottom: 20px;
+    min-height: 20px;
+    padding: 19px;
 }
 
 
@@ -485,4 +499,14 @@ body {
   padding: 10px;
   font-weight: bold;
   width: 150px;
+}
+
+
+/*
+=== INFO ===
+*/
+#info h3 {
+  color: #FF7000;
+  font-size: 14pt;
+  font-weight: bold;
 }

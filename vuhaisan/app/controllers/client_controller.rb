@@ -12,7 +12,8 @@ class ClientController < ApplicationController
     :add_to_cart_remote,
     :remove_from_cart_remote,
     :pay,
-    :order
+    :order,
+    :info
   ]
   before_filter :prepare_selected_categories, only: [:home]
   before_filter :prepare_profile, only: [
@@ -216,6 +217,16 @@ class ClientController < ApplicationController
     else
       @title = I18n.t "client.order_detail"
       render "client/order_detail"
+    end
+  end
+
+  def info
+    @title = I18n.t('client.info')
+    @settei = Settei.first
+    if !@settei
+      redirect_to client_home_path
+    else
+      render 'client/info'
     end
   end
 end

@@ -26,6 +26,7 @@ Vuhaisan::Application.routes.draw do
     match "update_order_delivery_info", to: "client#update_order_delivery_info", as: :client_update_order_delivery_info
     match "delete_cart", to: "client#delete_cart", as: :client_delete_cart
     match "order/:code", to: "client#order", as: :client_order
+    match "info", to: "client#info", as: :client_info
   end
   scope "payment" do
     match "vtc", to: "payment#vtc", as: :payment_vtc
