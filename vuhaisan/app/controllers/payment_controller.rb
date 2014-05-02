@@ -38,7 +38,7 @@ class PaymentController < ApplicationController
         @error = I18n.t "client.payment.vtc.invalid_amout"
       elsif website_id != VTC_PAY_WEBSITE_ID
         @error = I18n.t "client.payment.vtc.invalid_website_id"
-      elsif !check_sign(order_code, amount, sign)
+      elsif !check_sign(status, order_code, amount, sign)
         @error = I18n.t "client.payment.vtc.invalid_sign"
       else
         @message = I18n.t "client.payment.vtc.success"
@@ -47,7 +47,6 @@ class PaymentController < ApplicationController
 
     if !@error
       if @order
-        @order.paid_at = Time.now
         @order.step = Order::STEP_PAID
         @order.payment_failure_reason = nil
       end
@@ -62,6 +61,7 @@ class PaymentController < ApplicationController
       @order.save
     end
 
+    @title = @error || @message
     render "client/payment/vtc"
   end
 end

@@ -7,7 +7,15 @@ module PaymentHelper
     order_code = order.code
     amount = order.sum
 
-    sign = get_sign order_code, amount
+    sign = encrypt_array([
+      VTC_PAY_WEBSITE_ID,
+      VTC_PAY_PAYMENT_METHOD,
+      order_code,
+      amount,
+      VTC_PAY_RECEIVER_ACC,
+      VTC_PARAM_EXTEND,
+      VTC_PAY_SECRET
+    ])
 
     "#{VTC_PAY_BASE_URL}" +
     "?website_id=#{VTC_PAY_WEBSITE_ID}" +
@@ -19,20 +27,18 @@ module PaymentHelper
     "&sign=#{sign}"
   end
 
-  def check_sign(order_code, amount, server_sign)
-    server_sign == get_sign(order_code, amount)
-  end
-
-  def get_sign(order_code, amount)
-    data = [
+  def check_sign(status, order_code, amount, server_sign)
+    server_sign == encrypt_array([
+      status,
       VTC_PAY_WEBSITE_ID,
-      VTC_PAY_PAYMENT_METHOD,
       order_code,
       amount,
-      VTC_PAY_RECEIVER_ACC,
-      VTC_PARAM_EXTEND,
       VTC_PAY_SECRET
-    ].join "-"
-    Digest::SHA256.hexdigest(data).upcase
+    ])
+  end
+
+
+  def encrypt_array(arr)
+    Digest::SHA256.hexdigest(arr.join("-")).upcase
   end
 end
