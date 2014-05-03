@@ -124,45 +124,49 @@ class ClientController < ApplicationController
   end
 
   def confirm
-    payment = params[:payment].to_i
-    
-    @cart.name = params[:name]
-    @cart.email = params[:email]
-    @cart.phone = params[:phone]
-    @cart.payment = payment
-    @cart.step = Order::STEP_SENT
-    if @user
-      @cart.user = @user
-    end
+    if @cart && @cart.sum_quantity > 0
+      payment = params[:payment].to_i
+      
+      @cart.name = params[:name]
+      @cart.email = params[:email]
+      @cart.phone = params[:phone]
+      @cart.payment = payment
+      @cart.step = Order::STEP_SENT
+      if @user
+        @cart.user = @user
+      end
 
-    # generate address
-    arr = [params[:address][:detail]]
-    arr << params[:address][:district] if params[:address][:district]
-    arr << params[:address][:province]
-    @cart.address = arr.join(", ")
+      # generate address
+      arr = [params[:address][:detail]]
+      arr << params[:address][:district] if params[:address][:district]
+      arr << params[:address][:province]
+      @cart.address = arr.join(", ")
 
-    # generate ship cost
-    location_data_lv1 = LOCATION_DATA[params[:address][:province]]
-    if location_data_lv1.is_a?(Integer)
-      @cart.ship_cost = location_data_lv1
-    elsif location_data_lv1.is_a?(Hash)
-      @cart.ship_cost = location_data_lv1[params[:address][:district]]
-    end
+      # generate ship cost
+      location_data_lv1 = LOCATION_DATA[params[:address][:province]]
+      if location_data_lv1.is_a?(Integer)
+        @cart.ship_cost = location_data_lv1
+      elsif location_data_lv1.is_a?(Hash)
+        @cart.ship_cost = location_data_lv1[params[:address][:district]]
+      end
 
-    # notify user by email
-    if @cart.should_mail?
-      UserMailer.order_changed_email(@cart).deliver
-    end
+      # notify user by email
+      if @cart.should_mail?
+        UserMailer.order_changed_email(@cart).deliver
+      end
 
-    @cart.save
+      @cart.save
 
-    if payment == Order::PAYMENT_VTC_PAY
-      redirect_to get_vtc_pay_url(@cart)
+      if payment == Order::PAYMENT_VTC_PAY
+        redirect_to get_vtc_pay_url(@cart)
+      else
+        prepare_cart
+        @title = I18n.t("client.message")
+        @message = I18n.t("client.confirm_success")
+        render "client/message"
+      end
     else
-      prepare_cart
-      @title = I18n.t("client.message")
-      @message = I18n.t("client.confirm_success")
-      render "client/message"
+      redirect_to client_cart_detail_path
     end
   end
 
