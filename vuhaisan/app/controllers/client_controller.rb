@@ -168,8 +168,17 @@ class ClientController < ApplicationController
 
   def profile
     if @user
-      @orders = Order.where(step: {'$gt' => Order::STEP_CARTING}, user_id: @user.id)
-                  .sort(updated_at: -1).to_a
+      @order_keyword = params[:order_keyword]
+      if @order_keyword && @order_keyword.length > 0
+        criteria = Order.general_search @order_keyword
+      else
+        criteria = Order.all
+      end
+
+      @orders = criteria.where(step: {'$gt' => Order::STEP_CARTING})
+                  .where(user_id: @user.id)
+                  .order_by([[:updated_at, :desc]])
+                  .page(params[:page]).per(10)
       @title = I18n.t("client.profile")
       render "client/profile"
     else

@@ -1,5 +1,5 @@
 <div id="profileDetail" align="center">
-  <div class="well" style="width:60%;">
+  <div class="well" style="width:55%;">
     <%= form_tag client_update_profile_path, method: "post" do %>
       <table cellpadding="10" style="margin-bottom: 10px;">
         <tr>
@@ -51,27 +51,50 @@
   <br/>
 
   <% if @orders && @orders.length > 0 %>
-  <table class="client_data_table clickable_table">
-    <tr>
-      <th><%= t "client.code" %></th>
-      <th><%= t "client.desc" %></th>
-      <th><%= t "client.ship_cost" %></th>
-      <th><%= t "client.total" %></th>
-      <th><%= t "client.status" %></th>
-    </tr>
-    <% @orders.each do |o| %>
-      <tr onclick="location.href='<%= client_order_path(o.code) %>'">
-        <td><%= o.code %></td>
-        <td><%= o.desc %></td>
-        <td><%= number_to_currency o.ship_cost, unit: "", precision: 0 %></td>
-        <td><%= number_to_currency o.sum, unit: "", precision: 0 %></td>
-        <td>
-          <%= o.step_as_text %>
-          <%= link_to '[?]', "#{client_info_path}#steps_desc", target: '_blank' %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+    <div style="width:60%;" align="left">
+      <h3><%= t 'client.order.list' %></h3>
+      <hr/>
+      <div>
+        <div style="float:left;margin-top:21px;">
+          <%= form_tag client_profile_path, method: :get do %>
+            <%= text_field_tag(
+                  :order_keyword,
+                  @order_keyword,
+                  style: 'width:350px;height:30px;padding:2px;',
+                  placeholder: t('client.order.search_hint')) %>
+          <% end %>
+        </div>
+        <div style='float:right;'>
+          <%= paginate @orders %>
+        </div>
+      </div>
+      <div style="clear:both;">
+        <table class="client_data_table clickable_table" style="width:100%">
+          <tr>
+            <th><%= t "client.code" %></th>
+            <th><%= t "client.desc" %></th>
+            <th><%= t "client.ship_cost" %></th>
+            <th><%= t "client.total" %></th>
+            <th><%= t "client.status" %></th>
+          </tr>
+          <% @orders.each do |o| %>
+            <tr onclick="location.href='<%= client_order_path(o.code) %>'">
+              <td><%= o.code %></td>
+              <td><%= o.desc %></td>
+              <td><%= number_to_currency o.ship_cost, unit: "", precision: 0 %></td>
+              <td><%= number_to_currency o.sum, unit: "", precision: 0 %></td>
+              <td>
+                <%= o.step_as_text %>
+                <%= link_to '[?]', "#{client_info_path}#steps_desc", target: '_blank' %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <div style='float:right'>
+        <%= paginate @orders %>
+      </div>
+    </div>
   <% end %>
 </div>
 

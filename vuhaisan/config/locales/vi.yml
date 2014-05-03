@@ -120,6 +120,8 @@ vi:
         delivering: "Đang chuyển hàng"
         finished: "Hoàn thành"
         canceled: "Đã huỷ"
+      search_hint: "Tìm kiếm, ví dụ: \"2cfc45\", \"ca thu, dang chuyen\", ..."
+      list: "Danh sách đơn hàng"
     payment:
       vtc:
         order_not_exist: "Đơn hàng không tồn tại"
