@@ -25,5 +25,9 @@
   <%= f.text_area :search_hint, class: "ckeditor form-control" %>
 
   <hr/>
+  <label><%= t("client.policy") %></label>
+  <%= f.text_area :policy, class: "ckeditor form-control" %>
+
+  <hr/>
   <%= f.submit t("admin.edit"), class: 'btn btn-warning' %>
 <% end %>

@@ -7,5 +7,6 @@ class Settei
   field :payment_vtc_pay, type: String
   field :steps_desc, type: String
   field :search_hint, type: String
+  field :policy, type: String
 
 end
