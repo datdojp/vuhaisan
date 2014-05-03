@@ -21,5 +21,9 @@
   <%= f.text_area :steps_desc, class: "ckeditor form-control" %>
 
   <hr/>
+  <label><%= t("client.search_hint") %></label>
+  <%= f.text_area :search_hint, class: "ckeditor form-control" %>
+
+  <hr/>
   <%= f.submit t("admin.edit"), class: 'btn btn-warning' %>
 <% end %>

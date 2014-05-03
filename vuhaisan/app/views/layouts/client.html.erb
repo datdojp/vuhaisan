@@ -78,6 +78,7 @@
     <div id='searchBox'>
       <%= form_tag client_home_path, method: :get do %>
         <%= text_field_tag :keyword, @keyword, placeholder: t('client.search') %>
+        <%= link_to '[?]', "#{client_info_path}#search_hint", target: '_blank' %>
       <% end %>
     </div>
   </div>

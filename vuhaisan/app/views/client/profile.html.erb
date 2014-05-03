@@ -62,6 +62,7 @@
                   @order_keyword,
                   style: 'width:350px;height:30px;padding:2px;',
                   placeholder: t('client.order.search_hint')) %>
+            <%= link_to '[?]', "#{client_info_path}#search_hint", target: '_blank' %>
           <% end %>
         </div>
         <div style='float:right;'>

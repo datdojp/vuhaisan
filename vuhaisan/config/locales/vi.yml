@@ -112,6 +112,7 @@ vi:
     message: "Thông báo"
     confirm: "Xác nhận"
     confirm_success: "Đơn hàng đã được xác nhận và gửi đi thành công. Xin cảm ơn quý khách."
+    search_hint: "Hướng dẫn tìm kiếm"
     order:
       step:
         carting: "Đang chọn hàng"
