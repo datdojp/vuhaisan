@@ -61,7 +61,6 @@ class PaymentController < ApplicationController
       @order.save
     end
 
-    @title = @error || @message
     @title = I18n.t("client.message")
     render "client/message"
   end

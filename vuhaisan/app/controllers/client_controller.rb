@@ -182,7 +182,9 @@ class ClientController < ApplicationController
       @title = I18n.t("client.profile")
       render "client/profile"
     else
-      redirect_to client_home_path
+      @title = I18n.t("client.message")
+      @error = I18n.t 'client.err_user_not_logged_in'
+      render "client/message"
     end
   end
 
@@ -222,12 +224,20 @@ class ClientController < ApplicationController
   end
 
   def order
-    @order = Order.where(code: params[:code], user_id: @user.id).first
-    if !@order
-      redirect_to client_profile_path
+    if @user
+      @order = Order.where(code: params[:code], user_id: @user.id).first
+      if !@order
+        @title = I18n.t("client.message")
+        @error = I18n.t 'client.err_order_not_found'
+        render "client/message"
+      else
+        @title = I18n.t "client.order_detail"
+        render "client/order_detail"
+      end
     else
-      @title = I18n.t "client.order_detail"
-      render "client/order_detail"
+      @title = I18n.t("client.message")
+      @error = I18n.t 'client.err_user_not_logged_in'
+      render "client/message"
     end
   end
 

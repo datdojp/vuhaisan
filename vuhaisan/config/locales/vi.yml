@@ -113,6 +113,8 @@ vi:
     confirm: "Xác nhận"
     confirm_success: "Đơn hàng đã được xác nhận và gửi đi thành công. Xin cảm ơn quý khách."
     search_hint: "Hướng dẫn tìm kiếm"
+    err_order_not_found: "Đơn hàng không tồn tại"
+    err_user_not_logged_in: "Quý khách cần đăng nhập để thấy nội dung này"
     order:
       step:
         carting: "Đang chọn hàng"
