@@ -3,6 +3,7 @@
 //= require moment
 //= require bxslider
 //= require glisse
+//= require jquery-add2cart
 
 `
 Number.prototype.format = function(n, x) {

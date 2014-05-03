@@ -1,1 +1,2 @@
 $("#menuBar #userInfo .cart_count").html("<%= @cart.sum_quantity %>");
+$.add2cart("<%= @product_id %>_img", "cartIconImg", 0.75, null);

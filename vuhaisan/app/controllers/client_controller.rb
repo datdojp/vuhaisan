@@ -63,6 +63,7 @@ class ClientController < ApplicationController
 
   def add_to_cart_remote
     common_add_to_cart
+    @product_id = params[:product_id]
     render "client/remote/add_to_cart_remote", layout: nil
   end
 

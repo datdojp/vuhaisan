@@ -61,7 +61,7 @@
 
     <div id="userInfo">
       <a href="<%= client_cart_detail_path %>">
-        <div class="col cart_image"><%= image_tag "cart.png" %></div>
+        <div class="col cart_image"><%= image_tag "cart.png", id: 'cartIconImg' %></div>
         <div class="col cart_label" ><%= t("client.cart") %></div>
         <div class="col cart_count"><%= @cart.sum_quantity %></div>
       </a>
