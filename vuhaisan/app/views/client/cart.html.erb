@@ -84,30 +84,39 @@
         <%= radio_button_tag(
               :payment,
               Order::PAYMENT_AT_DELIVERIED,
-              Order::PAYMENT_AT_DELIVERIED == @cart.payment) %>
+              Order::PAYMENT_AT_DELIVERIED == @cart.payment,
+              onclick: "updateSubmitButton('#{t 'client.confirm'}');") %>
         <%= Order.get_payment_as_text Order::PAYMENT_AT_DELIVERIED %>
         <%= link_to '[?]', "#{client_info_path}#pay_at_delivery", target: '_blank' %>
         <br/>
         <%= radio_button_tag(
               :payment,
               Order::PAYMENT_BANK_TRANSFER,
-              Order::PAYMENT_BANK_TRANSFER == @cart.payment) %>
+              Order::PAYMENT_BANK_TRANSFER == @cart.payment,
+              onclick: "updateSubmitButton('#{t 'client.confirm'}');") %>
         <%= Order.get_payment_as_text Order::PAYMENT_BANK_TRANSFER %>
         <%= link_to '[?]', "#{client_info_path}#pay_bank_transfer", target: '_blank' %>
         <br/>
         <%= radio_button_tag(
               :payment,
               Order::PAYMENT_VTC_PAY,
-              Order::PAYMENT_VTC_PAY == @cart.payment) %>
+              Order::PAYMENT_VTC_PAY == @cart.payment,
+              onclick: "updateSubmitButton('#{t 'client.pay'}');") %>
         <%= Order.get_payment_as_text Order::PAYMENT_VTC_PAY %>
         <%= link_to '[?]', "#{client_info_path}#pay_vtc", target: '_blank' %>
+
+        <script type="text/javascript">
+          function updateSubmitButton(val) {
+            $("form input[type=submit]").val(val);
+          }
+        </script>
       </div>
     </td></tr>
 
     <tr><td>
       <% if @cart.sum_quantity > 0 %>
         <div style="margin-top:30px;" align="left">
-          <%= submit_tag t("client.pay"), class: "blueButton"  %>
+          <%= submit_tag t("client.confirm"), class: "blueButton"  %>
           <button id="deleteOrderButton" class="redButton"
             style="margin-left:20px;"><%= t("client.delete_cart") %>
           </button>
