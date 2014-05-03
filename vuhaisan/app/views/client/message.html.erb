@@ -1,11 +1,11 @@
 <div id="message" align="center">
   <% if @error %>
     <div class="error_box" style="width:60%;">
-      <%= @error %>
+      <%= @error.html_safe %>
     </div>
   <% elsif @message %>
     <div class="message_box" style="width:60%;">
-      <%= @message %>
+      <%= @message.html_safe %>
     </div>
   <% end %>
 </div>

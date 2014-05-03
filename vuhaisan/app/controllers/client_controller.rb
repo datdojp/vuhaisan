@@ -162,7 +162,11 @@ class ClientController < ApplicationController
       else
         prepare_cart
         @title = I18n.t("client.message")
-        @message = I18n.t("client.confirm_success")
+        if payment == Order::PAYMENT_AT_DELIVERIED
+          @message = I18n.t("client.confirm_success_at_delivery")
+        elsif payment == Order::PAYMENT_BANK_TRANSFER
+          @message = I18n.t("client.confirm_success_bank_transfer")
+        end
         render "client/message"
       end
     else
