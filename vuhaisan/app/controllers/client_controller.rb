@@ -11,7 +11,7 @@ class ClientController < ApplicationController
     :add_to_cart,
     :add_to_cart_remote,
     :remove_from_cart_remote,
-    :pay,
+    :confirm,
     :order,
     :info
   ]
@@ -20,7 +20,7 @@ class ClientController < ApplicationController
     :profile,
     :update_profile,
     :cart_detail,
-    :pay,
+    :confirm,
     :order
   ]
 
@@ -122,7 +122,7 @@ class ClientController < ApplicationController
     render "client/cart"
   end
 
-  def pay
+  def confirm
     payment = params[:payment].to_i
     
     @cart.name = params[:name]
@@ -159,8 +159,9 @@ class ClientController < ApplicationController
       redirect_to get_vtc_pay_url(@cart)
     else
       prepare_cart
-      @title = I18n.t("client.pay")
-      render "client/payment"
+      @title = I18n.t("client.message")
+      @message = I18n.t("client.confirm_success")
+      render "client/message"
     end
   end
 

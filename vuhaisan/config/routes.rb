@@ -17,7 +17,7 @@ Vuhaisan::Application.routes.draw do
     match "add_to_cart_remote", to: "client#add_to_cart_remote", as: :client_add_to_cart_remote, format: :js
     match "remove_from_cart_remote", to: "client#remove_from_cart_remote", as: :client_remove_from_cart_remote_remote, format: :js
     match "cart", to: "client#cart_detail", as: :client_cart_detail
-    match "pay", to: "client#pay", as: :client_pay
+    match "confirm", to: "client#confirm", as: :client_confirm
     match "profile", to: "client#profile", as: :client_profile
     match "update_profile", to: "client#update_profile", as: :client_update_profile
     match "login_remote", to: "client#login_remote", as: :client_login_remote, format: :js

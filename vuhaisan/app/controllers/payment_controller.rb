@@ -62,6 +62,7 @@ class PaymentController < ApplicationController
     end
 
     @title = @error || @message
-    render "client/payment/vtc"
+    @title = I18n.t("client.message")
+    render "client/message"
   end
 end
