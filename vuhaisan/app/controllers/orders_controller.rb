@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
   	@keyword = params[:keyword]
     @from = params[:from]
     @to = params[:to]
-    @timezone = params[:timezone]
+    since = 60 * params[:timezone].to_i
   	if @keyword
   	  criteria = Order.general_search @keyword
   	else
@@ -24,10 +24,12 @@ class OrdersController < ApplicationController
   	end
     criteria = criteria.where(step: {'$gt' => Order::STEP_CARTING})
     if @from && @from.length > 0
-      criteria = criteria.where(:updated_at.gte => Time.parse("#{@from} 00:00:00 #{@timezone}"))
+      criteria = criteria.where(
+        :updated_at.gte => Time.parse("#{@from} 00:00:00 UTC").since(since))
     end
     if @to && @to.length > 0
-      criteria = criteria.where(:updated_at.lte => Time.parse("#{@to} 23:59:59 #{@timezone}"))
+      criteria = criteria.where(
+        :updated_at.lte => Time.parse("#{@to} 23:59:59 UTC").since(since))
     end
   	
   	@orders = criteria.order_by([[:updated_at, :desc]]).page(params[:page]).per(10)
