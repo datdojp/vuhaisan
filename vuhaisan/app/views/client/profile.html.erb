@@ -74,19 +74,21 @@
           <tr>
             <th><%= t "client.code" %></th>
             <th><%= t "client.desc" %></th>
-            <th><%= t "client.ship_cost" %></th>
             <th><%= t "client.total" %></th>
             <th><%= t "client.status" %></th>
+            <th><%= t "client.update" %></th>
           </tr>
           <% @orders.each do |o| %>
             <tr onclick="location.href='<%= client_order_path(o.code) %>'">
               <td><%= o.code %></td>
               <td><%= o.desc %></td>
-              <td><%= number_to_currency o.ship_cost, unit: "", precision: 0 %></td>
               <td><%= number_to_currency o.sum, unit: "", precision: 0 %></td>
               <td>
                 <%= o.step_as_text %>
                 <%= link_to '[?]', "#{client_info_path}#steps_desc", target: '_blank' %>
+              </td>
+              <td>
+                <%= render partial: "common/datetime", locals: { val: o.updated_at } %>
               </td>
             </tr>
           <% end %>
