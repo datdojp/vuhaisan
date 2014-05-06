@@ -14,7 +14,13 @@ class Product
   belongs_to :category, class_name: Category.name, inverse_of: :products
   has_many :order_items, class_name: OrderItem.name, inverse_of: :product
 
-  before_destroy :delete_image
+  before_destroy do |document|
+    if document.images
+      document.images.each do |i|
+        Product.delete_image i
+      end
+    end
+  end
 
   before_save do |document|
     a = get_search_data document, [

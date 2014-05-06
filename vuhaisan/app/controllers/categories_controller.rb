@@ -67,12 +67,9 @@ class CategoriesController < ApplicationController
     end
 
     # delete related products
-    products = Product.where(category_id: params[:id]).all
-    if products && products.length > 0
-      products.each do |p|
-        p.delete_image
-        p.delete
-      end
+    products = Product.where(category_id: params[:id]).to_a
+    products.each do |p|
+      p.delete
     end
 
     redirect_to categories_path

@@ -92,7 +92,6 @@ class ProductsController < ApplicationController
   def destroy
     product = Product.where(id: params[:id]).first
     if product
-      product.delete_image
       product.delete
     end
     redirect_to products_path
