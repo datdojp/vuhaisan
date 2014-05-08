@@ -272,6 +272,11 @@ body {
   clear: both;
   height: 120px;
   margin-top: 20px;
+  background: #eff8ea;
+}
+
+#productList .product:hover {
+  background: white;
 }
 
 #productList .product .col1 {
@@ -280,7 +285,7 @@ body {
 }
 
 #productList .product .col1 .name {
-  color: #FF023E;
+  color: #18B0E0;
   font-weight: bold;
 }
 
@@ -303,7 +308,8 @@ body {
 }
 
 #productList .footer {
-  background: #00CE3C;
+  background: #93DA93;
+  border: #6faa6f 1px dotted;
   width: 100%;
   clear: both;
   height: 30px;
@@ -380,7 +386,6 @@ body {
 
 #product_detail .col2 .info {
   background: #E7FCEB;
-  width: 100%;
   padding: 10px 10px 10px 10px;
   border-radius: 3px;
 }
