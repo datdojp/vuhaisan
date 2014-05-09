@@ -208,3 +208,7 @@ end
 def format_currency(amount)
   number_to_currency amount, unit: "", precision: 0
 end
+
+def get_request_url()
+  "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
+end
