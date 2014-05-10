@@ -74,6 +74,6 @@ class Product
   end
 
   def self.general_search(keyword)
-    Product.where get_search_criteria(keyword)
+    Product.where get_search_criteria(keyword, true)
   end
 end

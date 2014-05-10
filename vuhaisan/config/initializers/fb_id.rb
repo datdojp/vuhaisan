@@ -90,7 +90,13 @@ def get_search_data(obj, fields)
   [data, flatten_vietnamese(data)]
 end
 
-def get_search_criteria(keyword, separator=',', data_field=:data, flattened_data=:flattened_data)
+def get_search_criteria(
+    keyword,
+    search_price=false,
+    separator=',',
+    data_field=:data,
+    flattened_data=:flattened_data)
+
   if !keyword || keyword.length == 0
     return {}
   end
@@ -98,8 +104,28 @@ def get_search_criteria(keyword, separator=',', data_field=:data, flattened_data
   tokens = keyword.split separator
   and_criteria = []
   tokens.each do |t|
-    regexp = eval "/.*#{Regexp.quote t.strip}.*/i"
-    and_criteria << { "$or" => [{data_field => regexp}, {flattened_data => regexp}] }
+    t = t.strip
+    if search_price && (
+        /^\d+-$/.match(t) ||
+        /^-\d+$/.match(t) ||
+        /^\d+-\d+$/.match(t) )
+      splitted = t.split '-'
+      if splitted.length > 0
+        from = splitted[0]
+        if from.length > 0
+          and_criteria << { price: {"$gte" => Integer(from)} }
+        end
+      end
+      if splitted.length > 1
+        to = splitted[1]
+        if to.length > 0
+          and_criteria << { price: {"$lte" => Integer(to)} }
+        end
+      end
+    else
+      regexp = eval "/.*#{Regexp.quote t}.*/i"
+      and_criteria << { "$or" => [{data_field => regexp}, {flattened_data => regexp}] }
+    end
   end
   { "$and" => and_criteria }
 end
