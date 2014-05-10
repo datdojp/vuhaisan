@@ -29,7 +29,7 @@ class Product
     document.flattened_data = a[1]
   end
 
-  UNITS = ["kg", "hundred_g", "item", "animal_item"]
+  UNITS = ["kg", "hundred_g", "item", "animal_item", "bottle", "bulk", "litre"]
 
   def self.get_unit_text(unit)
     I18n.t "admin.#{unit}"
