@@ -120,6 +120,8 @@ vi:
     err_order_not_found: "Đơn hàng không tồn tại"
     err_user_not_logged_in: "Quý khách cần đăng nhập để thấy nội dung này"
     policy: "Chính sách bán hàng"
+    no_product: "Không có sản phẩm nào"
+    no_order: "Không có đơn hàng nào"
     order:
       step:
         carting: "Đang chọn hàng"

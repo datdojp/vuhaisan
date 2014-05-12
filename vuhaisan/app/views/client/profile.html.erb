@@ -50,25 +50,20 @@
   <br/>
   <br/>
 
-  <% if @orders && @orders.length > 0 %>
-    <div style="width:60%;" align="left">
-      <h3><%= t 'client.order.list' %></h3>
-      <hr/>
-      <div>
-        <div style="float:left;margin-top:21px;">
-          <%= form_tag client_profile_path, method: :get do %>
-            <%= text_field_tag(
-                  :order_keyword,
-                  @order_keyword,
-                  style: 'width:350px;height:30px;padding:2px;',
-                  placeholder: t('client.order.search_hint')) %>
-            <%= link_to '[?]', "#{client_info_path}#search_hint", target: '_blank' %>
-          <% end %>
-        </div>
-        <div style='float:right;'>
-          <%= paginate @orders %>
-        </div>
-      </div>
+  <div style="width:60%;" align="left">
+    <h3><%= t 'client.order.list' %></h3>
+    <hr/>
+    <div style="float:left;margin-top:20px;margin-bottom:20px;">
+      <%= form_tag client_profile_path, method: :get do %>
+        <%= text_field_tag(
+              :order_keyword,
+              @order_keyword,
+              style: 'width:350px;height:30px;padding:2px;',
+              placeholder: t('client.order.search_hint')) %>
+        <%= link_to '[?]', "#{client_info_path}#search_hint", target: '_blank' %>
+      <% end %>
+    </div>
+    <% if @orders && @orders.length > 0 %>
       <div style="clear:both;">
         <table class="client_data_table clickable_table" style="width:100%">
           <tr>
@@ -97,8 +92,12 @@
       <div style='float:right'>
         <%= paginate @orders %>
       </div>
-    </div>
-  <% end %>
+    <% else %>
+      <div style="clear:both;">
+        <h2><%= t 'client.no_order' %></h2>
+      </div>
+    <% end %>
+  </div>
 </div>
 
 <script type="text/javascript">
