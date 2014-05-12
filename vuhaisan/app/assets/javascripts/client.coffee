@@ -16,6 +16,7 @@ window.client = ->
   $('.bannerImg').load ->
     docHeight = $(document).height()
     contentDivTop = $('#contentDiv').position().top
+    $('#footer').show()
     footerHeight = $('#footer').height()
     $('#contentDiv').css 'min-height', "#{docHeight - contentDivTop - footerHeight}px"
 
