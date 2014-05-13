@@ -151,6 +151,12 @@ body {
 #menuBar #userInfo .fbAccount .loginButton {
   margin-top: 11px;
   display: none;
+  background: url(image_path('facebookbutton.png')) no-repeat;
+  width: 89px;
+  height: 30px;
+  padding: 0px 0px;
+  border: 0px;
+  cursor: pointer;
 }
 
 #header_seperator {
