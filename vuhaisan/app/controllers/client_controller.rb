@@ -232,21 +232,38 @@ class ClientController < ApplicationController
   end
 
   def order
-    if @user
-      @order = Order.where(code: params[:code], user_id: @user.id).first
-      if !@order
-        @title = I18n.t("client.message")
-        @error = I18n.t 'client.err_order_not_found'
-        render "client/message"
-      else
-        @title = I18n.t "client.order_detail"
-        render "client/order_detail"
+    @order = Order.where(code: params[:code]).first
+
+    if @order
+      if @order.user
+        if !@user
+          __order_not_logged_in
+          return
+        end
+        if @user.id != @order.user_id
+          __order_not_found
+          return
+        end
       end
     else
-      @title = I18n.t("client.message")
-      @error = I18n.t 'client.err_user_not_logged_in'
-      render "client/message"
+      __order_not_found
+      return
     end
+
+    @title = I18n.t "client.order_detail"
+    render "client/order_detail"
+  end
+
+  def __order_not_found
+    @title = I18n.t("client.message")
+    @error = I18n.t 'client.err_order_not_found'
+    render "client/message"
+  end
+
+  def __order_not_logged_in
+    @title = I18n.t("client.message")
+    @error = I18n.t 'client.err_user_not_logged_in'
+    render "client/message"
   end
 
   def info
