@@ -1,0 +1,12 @@
+<img id="fbCheckImg" src="https://facebook.com/favicon.ico" style="display:none;" />
+<script type="text/javascript">
+	var fbAccessible = false;
+	$('#fbCheckImg').load(function() {
+		fbAccessible = true;
+	});
+	setTimeout(function() {
+		if (!fbAccessible) {
+			$(".fbsp").remove();
+		}
+	}, 500);
+</script>
