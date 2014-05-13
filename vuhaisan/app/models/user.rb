@@ -48,4 +48,16 @@ class User
   def self.general_search(keyword)
     User.where get_search_criteria(keyword)
   end
+
+  def get_address_as_text
+    if address
+      arr = []
+      arr << address['detail']
+      arr << address['district'] if address['district']
+      arr << address['province']
+      return arr.join(", ")
+    else
+      return ""
+    end
+  end
 end

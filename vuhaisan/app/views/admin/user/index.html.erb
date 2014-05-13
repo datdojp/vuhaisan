@@ -34,7 +34,7 @@
   	</td>
   	<td><%= u.name %></td>
   	<td><%= u.email %></td>
-  	<td><%= u.address %></td>
+  	<td><%= u.get_address_as_text %></td>
   	<td><%= u.phone %></td>
   	<td>
   	  <div><b><%= link_to "#{u.order_count} #{t('admin.order')}", orders_path(keyword: u.fb_id) %></b></div>
