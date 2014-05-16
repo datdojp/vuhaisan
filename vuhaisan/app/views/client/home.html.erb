@@ -1,5 +1,5 @@
 <div id="productList">
-  <div id="facepile">
+  <div id="facepile" class="fbsp">
     <fb:facepile
       href="<%= get_fanpage %>"
       max_rows="1"
@@ -28,8 +28,8 @@
     </a>
     <div class="footer">
         <% product_detail_full_link = "#{request.protocol}#{request.host_with_port}#{product_detail_link}" %>
-        <div class="fb-like" data-href="<%= product_detail_full_link %>" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-        <div class="fb-comment-count">
+        <div class="fb-like fbsp" data-href="<%= product_detail_full_link %>" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+        <div class="fb-comment-count fbsp">
           <%= image_tag "comment.png", style: "float:left;" %>
           <fb:comments-count class="count" href="<%= product_detail_full_link %>" style="float:left;"></fb:comments-count>
         </div>

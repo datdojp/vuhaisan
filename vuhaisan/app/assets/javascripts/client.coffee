@@ -20,6 +20,21 @@ window.client = ->
     footerHeight = $('#footer').height()
     $('#contentDiv').css 'min-height', "#{docHeight - contentDivTop - footerHeight}px"
 
+  # check if facebook is accessible
+  intervalVar = setInterval(->
+    $(".fbsp iframe").not(".monitored").each ->
+      $iframe = $(@)
+      timeoutVar = setTimeout(->
+        $('.fbsp').remove() 
+      , 5000)
+      $iframe.load -> clearTimeout(timeoutVar)
+      $iframe.addClass('monitored')
+  , 10)
+  setTimeout(->
+    clearInterval(intervalVar)
+  , 10000)
+
+
 
 window.onFbAsyncInit = (loginRemotePath, logoutRemotePath) ->
   checkLoginStatus = ->
