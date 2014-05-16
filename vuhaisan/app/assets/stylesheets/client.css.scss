@@ -323,28 +323,27 @@ body {
 }
 
 #productList .footer .fb-like {
-  float:left;
-  margin-top: 5px;
   margin-left: 10px;
+  margin-top: 1px;
 }
 
-#productList .footer .fb-comment-count {
-  float:left;
-  margin-left: 20px;
+#productList .footer table td {
+  vertical-align: top;
 }
 
-#productList .footer .fb-comment-count img {
+#productList .footer .commentCountImg {
   width: 24px;
   height: 24px;
   margin-right: 5px;
+  margin-top: 1px;
+  margin-left: 20px;
+}
+
+#productList .footer .count {
   margin-top: 3px;
 }
 
-#productList .footer .fb-comment-count .count {
-  margin-top: 7px;
-}
-
-#productList .footer .fb-comment-count .count span {
+#productList .footer .count span {
   color: white;
   font-size: 11pt;
   font-style: normal;
