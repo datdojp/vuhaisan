@@ -66,6 +66,13 @@ vi:
     remove_from_cart: "Xóa khỏi giỏ hàng"
     product_name: "Tên sản phẩm"
     user_search_hint: "Tìm kiếm theo: tên, email, địa chỉ, điện thoại, faceook ID"
+    kensaku: "Tìm kiếm"
+    keyword: "Từ khoá"
+    last_n_results: "Số kết quả trong lần tìm kiếm cuối cùng"
+    n_searches: "Số lần tìm kiếm"
+    all: "Tất cả"
+    no_result: "Không kết quả"
+    has_result: "Có kết quả"
   client:
     in_store: "Còn hàng"
     not_in_store: "Hết hàng"

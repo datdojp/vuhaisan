@@ -58,6 +58,16 @@
         }
       )
     %>
+    <%=
+      link_to(
+        t("admin.kensaku"),
+        kensakus_path,
+        {
+          class: (@tab==5?"selected_tab":""),
+          style: "margin-left:10px;"
+        }
+      )
+    %>
     <%= link_to(
           t("admin.logout"),
           admin_logout_path,

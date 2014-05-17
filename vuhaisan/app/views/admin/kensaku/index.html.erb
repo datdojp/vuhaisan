@@ -1,0 +1,59 @@
+<%
+  if !@filter || @filter.length == 0
+    all_class = "btn-primary"
+    no_result_class = "btn-default"
+    has_result_class = "btn-default"
+  elsif @filter == KensakusController::FILTER_NO_RESULT
+    all_class = "btn-default"
+    no_result_class = "btn-primary"
+    has_result_class = "btn-default"
+  elsif @filter == KensakusController::FILTER_HAS_RESULT
+    all_class = "btn-default"
+    no_result_class = "btn-default"
+    has_result_class = "btn-primary"
+  end
+%>
+<div>
+  <button
+    class="btn <%= all_class %>"
+    style="float:left;"
+    onclick="location.href='<%= kensakus_path %>'">
+      <%= t('admin.all') %>
+  </button>
+  <button
+    class="btn <%= no_result_class %>"
+    style="float:left; margin-left:10px;"
+    onclick="location.href='<%= kensakus_path(filter: KensakusController::FILTER_NO_RESULT) %>'">
+      <%= t('admin.no_result') %>
+  </button>
+  <button
+    class="btn <%= has_result_class %>"
+    style="float:left; margin-left:10px;"
+    onclick="location.href='<%= kensakus_path(filter: KensakusController::FILTER_HAS_RESULT) %>'">
+      <%= t('admin.has_result') %>
+  </button>
+</div>
+
+<br/>
+<br/>
+
+<table class="table table-hover table-bordered table-striped table-condensed">
+  <tr>
+    <th><%= t 'admin.keyword' %></th>
+    <th><%= t 'admin.n_searches' %></th>
+    <th><%= t 'admin.last_n_results' %></th>
+    <th><%= t 'admin.updated_at' %></th>
+  </tr>
+  <% @kensakus.each do |k| %>
+    <tr>
+      <td><%= k.keyword %></td>
+      <td><%= k.n_searches %></td>
+      <td><%= k.last_n_results %></td>
+      <td>
+        <%= render partial: "common/datetime", locals: { val: k.updated_at } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= paginate @kensakus %>

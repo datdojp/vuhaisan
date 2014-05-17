@@ -33,6 +33,7 @@ class ClientController < ApplicationController
 
   def home
     @keyword = params[:keyword]
+    @keyword.strip! if @keyword
     if @keyword && @keyword.length > 0
       criteria = Product.general_search @keyword
       @category_id = nil
@@ -40,9 +41,31 @@ class ClientController < ApplicationController
       criteria = Product.where(category_id: @category_id)
     end
 
+    if request.method == "POST" && @keyword && @keyword.length > 0
+      __log_search(@keyword, criteria.length)
+      redirect_to client_home_path(keyword: @keyword)
+      return
+    end
+
     @products = criteria.page(params[:page]).per(10)
     @title = I18n.t("client.home")
     render "client/home"
+  end
+
+  def __log_search(keyword, n_results)
+    if keyword && keyword.length > 0
+      kensaku = Kensaku.where(keyword: keyword).first
+      if kensaku
+        kensaku.n_searches = kensaku.n_searches + 1
+        kensaku.last_n_results = n_results
+        kensaku.save
+      else
+        Kensaku.create(
+          keyword: keyword,
+          n_searches: 1,
+          last_n_results: n_results)
+      end
+    end
   end
 
   def product_detail
@@ -177,6 +200,7 @@ class ClientController < ApplicationController
   def profile
     if @user
       @order_keyword = params[:order_keyword]
+      @order_keyword.strip! if @order_keyword
       if @order_keyword && @order_keyword.length > 0
         criteria = Order.general_search @order_keyword
       else
