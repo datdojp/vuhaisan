@@ -281,7 +281,6 @@ body {
 
 #productList .product {
   clear: both;
-  height: 120px;
   background: #eff8ea;
 }
 
@@ -290,7 +289,6 @@ body {
 }
 
 #productList .product .col1 {
-  float: left;
   height: 100%;
   padding-left: 10px;
 }
@@ -307,11 +305,6 @@ body {
 
 #productList .product .col1 .not_in_store {
   color: #ff0000 !important;
-}
-
-#productList .product .col2 {
-  float: right;
-  height: 100%;
 }
 
 #productList .product .col2 img {

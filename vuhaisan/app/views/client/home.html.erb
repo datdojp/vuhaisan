@@ -16,14 +16,18 @@
     <% product_detail_link = client_product_detail_path(p.id) %>
     <a href="<%= product_detail_link %>">
       <div class="product">
-        <div class="col1">
-          <%= render partial: "product_info", locals: {product: p} %>
-        </div>
-        <div class="col2">
-          <% if p.has_image? %>
-            <img src="<%= p.images[0] %>" id="<%= p.id.to_s %>_img"/>
-          <% end %>
-        </div>
+        <table style="width:100%;" cellpadding="0" cellspacing="0">
+          <tr>
+            <td class="col1">
+              <%= render partial: "product_info", locals: {product: p} %>
+            </td>
+            <td align="right" class="col2">
+              <% if p.has_image? %>
+                <img src="<%= p.images[0] %>" id="<%= p.id.to_s %>_img"/>
+              <% end %>
+            </td>
+          <tr>
+        </table>
       </div>
     </a>
     <div class="footer">
