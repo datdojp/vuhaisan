@@ -11,7 +11,7 @@
     $(function() {
       <% if @product.images && @product.images.length > 0 %>
         <% @product.images.each do |i| %>
-          addImageLinkWithData("<%= i %> ");
+          addImageLinkWithData("<%= i %>");
         <% end %>
       <% end %>
     });
@@ -68,6 +68,20 @@
     <%= f.text_area :desc, rows: 5, cols: 40, class: "ckeditor form-control" %>
   </div>
   
+  <%= render partial: 'admin/product/custom_fields' %>
+
+  <script type="text/javascript">
+    $(function() {
+      <% @product.custom_fields.each do |name, options| %>
+        addCustomField(
+          "<%= name %>",
+          "<%= options.join(', ') %>",
+          "<%= t 'admin.custom_field.name'%>",
+          "<%= t 'admin.custom_field.options'%>");
+      <% end %>
+    });
+  </script>
+
   <%= f.submit t("admin.edit"), class: 'btn btn-warning' %>
 <% end %>
 

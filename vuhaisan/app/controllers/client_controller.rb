@@ -23,12 +23,22 @@ class ClientController < ApplicationController
     :confirm,
     :order
   ]
+  before_filter :prepare_product_custom_fields, only: [:add_to_cart, :add_to_cart_remote]
 
   layout "client"
 
   def prepare
     prepare_categories
     prepare_cart
+  end
+
+  def prepare_product_custom_fields
+    @custom_field_values = []
+    params.keys.each do |k|
+      if /^_custom_field_value_\d+$/.match(k)
+        @custom_field_values << params[k]
+      end
+    end
   end
 
   def home
@@ -97,7 +107,10 @@ class ClientController < ApplicationController
     # check if product is already added
     existing_item = nil
     @cart.items.each do |i|
-      if i.product_id == product.id && i.unit == product.unit && i.price == product.price
+      if  i.product_id == product.id &&
+          i.unit == product.unit &&
+          i.price == product.price &&
+          i.custom_field_values == @custom_field_values
         existing_item = i
         break
       end
@@ -112,7 +125,12 @@ class ClientController < ApplicationController
         unit: product.unit,
         quantity: quantity,
         price: product.price,
-        name: product.name)
+        custom_field_values: @custom_field_values)
+      if @custom_field_values.length > 0
+        item.name = "#{product.name} - #{item.custom_field_values_as_text}"
+      else
+        item.name = product.name
+      end
       item.product = product
       @cart.items << item
     end

@@ -73,6 +73,10 @@ vi:
     all: "Tất cả"
     no_result: "Không kết quả"
     has_result: "Có kết quả"
+    custom_fields: "Thuộc tính tuỳ ý"
+    custom_field:
+      name: "Tên thuộc tính"
+      options: "Các lựa chọn"
   client:
     in_store: "Còn hàng"
     not_in_store: "Hết hàng"

@@ -9,6 +9,7 @@ class ProductsController < ApplicationController
   before_filter :load_categories, only: [:index, :new, :edit]
   before_filter :save_image, only: [:create, :update]
   before_filter :prepare_config
+  before_filter :make_custom_fields, only: [:create, :update]
 
   def set_tab_index
     @tab = 0
@@ -37,6 +38,20 @@ class ProductsController < ApplicationController
         end
       end
     end
+  end
+
+  def make_custom_fields
+    custom_fields = {}
+    params.keys.each do |k|
+      if /^_custom_field_name_\d+$/.match(k)
+        id = k.scan(/.*(\d+)/).first.first
+        name = params[k].to_sym
+        options = params["_custom_field_options_#{id}".to_sym].split(",")
+        options.each {|o| o.strip! }
+        custom_fields[name] = options
+      end
+    end
+    params[:product][:custom_fields] = custom_fields
   end
 
   def index

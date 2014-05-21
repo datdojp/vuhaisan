@@ -11,6 +11,8 @@ class Product
   field :data, type: String
   field :flattened_data, type: String
 
+  field :custom_fields, type: Hash, default: {}
+
   belongs_to :category, class_name: Category.name, inverse_of: :products
   has_many :order_items, class_name: OrderItem.name, inverse_of: :product
 

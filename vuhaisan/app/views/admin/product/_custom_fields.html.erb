@@ -1,0 +1,20 @@
+<script type="text/javascript">
+  function addEmptyCustomField() {
+    addCustomField(
+      "",
+      "",
+      "<%= t 'admin.custom_field.name'%>",
+      "<%= t 'admin.custom_field.options'%>"
+    )
+  }
+</script>
+<div class="form-group">
+  <label><%= t "admin.custom_fields" %></label>
+  <div id="customFieldInputs">
+  </div>
+  <div style="clear:both;">
+    <button type="button" class="btn btn-default" onclick="addEmptyCustomField();return false;">
+      <span class="glyphicon glyphicon-plus"></span>
+    </button>
+  </div>
+</div>

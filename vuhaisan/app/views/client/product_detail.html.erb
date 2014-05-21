@@ -52,6 +52,23 @@
         <span class="label" style="margin-left:20px;"><%= t("client.total") %>:</span>
         <span id="total"><%= @product.price %></span>
         <br/>
+        <% custom_field_id = 0 %>
+        <% @product.custom_fields.each do |name, options| %>
+          <span class="label"><%= name %></span>
+          <%= hidden_field_tag "_custom_field_name_#{custom_field_id}", name %>
+          <%
+            options_opts = []
+            options.each do |o|
+              options_opts << [o, o]
+            end
+          %>
+          <%= select_tag(
+                "_custom_field_value_#{custom_field_id}",
+                options_for_select(options_opts, 1),
+                id: "quantity_select") %>
+          <br/>
+          <% custom_field_id = custom_field_id + 1 %>
+        <% end %>
         <%= submit_tag t("client.add_to_cart"), class: "blueButton", style: "margin-top:10px;" %>
       <% end %>
     <% end %>

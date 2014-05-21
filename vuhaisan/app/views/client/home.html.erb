@@ -53,7 +53,7 @@
             </td>
           </tr>
         </table>
-        <% if p.in_store? %>
+        <% if p.in_store? && p.custom_fields.empty? %>
         <div class="addToCartButton" data-product-id="<%= p.id.to_s %>">
           <%= image_tag "cart12.png", title: t("client.add_to_cart") %>
         </div>

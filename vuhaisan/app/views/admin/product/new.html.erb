@@ -57,6 +57,9 @@
     <label><%= t "admin.desc" %></label>
     <%= f.text_area :desc, rows: 5, cols: 40, class: "ckeditor form-control" %>
   </div>
+
+  <%= render partial: 'admin/product/custom_fields' %>
+  
   <%= f.submit t("admin.create"), class: 'btn btn-success' %>
 <% end %>
 
