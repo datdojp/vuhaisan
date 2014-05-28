@@ -31,46 +31,82 @@ class Product
     document.data = a[0]
     document.flattened_data = a[1]
 
-    # prepare category 's tag
-    tag_tree = document.category.tag_tree
+    # prepare category 's tag tree
+    # %%% remove it from old category
+    category = document.category
+    tag_tree = category.tag_tree
+    tag_tree['name'] ||= ""
+    tag_tree['pids'] ||= []
+    tag_tree['children'] ||= []
     pid = document.id.to_s
-    __iterate_category_tags(
-        tag_tree,
-        [],
-        proc do |node|
-          node[:pids] ||= []
-          node[:pids].delete(pid)
-        end
-      )
+    # clear product from tag tree
+    iterator = nil
+    iterator = proc do |node|
+      node['pids'].delete(pid)
+      node['children'].each do |child|
+        iterator.call(child)
+      end
+    end
+    iterator.call(tag_tree)
+    # add product to tag tree
     document.tags.each do |tag|
       tokens = tag.split(",")
       cur = tag_tree
       tokens.each_with_index do |t, i|
         t.strip!
-        next if t.length == 0
-        if i < tokens.length-1
-          cur[:children].each do |child|
-            if child[:name] == t
-              cur = child
-              next
-            else
-              
-            end
-          end
-        else
+        next if !t || t.length == 0
 
+        # find child node whose name equals to token
+        found = false
+        cur['children'].each do |child|
+          if child['name'] == t
+            cur = child
+            found = true
+            break
+          end
+        end
+        if !found
+          new_node = {
+            'name' => t,
+            'children' => [],
+            'pids' => [],
+            'pcount' => 0
+          }
+          cur['children'] << new_node
+          cur = new_node
+        end
+
+        # if token is last one, add pid
+        if i == tokens.length - 1
+          cur['pids'] << pid
         end
       end
     end
-  end
-
-  def __iterate_category_tags(node, callback)
-    callback.call(node)
-    if node[:children] && node[:children].length > 0
-      node[:children].each do |child|
-        __iterate_category_tags(child, callback)
+    # re-calculate pcount
+    iterator = nil
+    iterator = proc do |node|
+      pcount = node['pids'].length
+      node['children'].each do |child|
+        pcount += iterator.call(child)
+      end
+      node['pcount'] = pcount
+      pcount
+    end
+    iterator.call(tag_tree)
+    # delete node whose pcount == 0
+    iterator = nil
+    iterator = proc do |node|
+      node['children'].each do |child|
+        if child['pcount'] == 0
+          node['children'].delete(child)
+        else
+          iterator.call(child)
+        end
       end
     end
+    iterator.call(tag_tree)
+    # save category
+    category.save
   end
 
   UNITS = ["kg", "hundred_g", "item", "animal_item", "bottle", "bulk", "litre"]
