@@ -4,7 +4,12 @@ class Category
   field :name, type: String
   field :no, type: Integer
   field :hidden, type: Boolean, default: false
-  field :tag_tree, type: Hash, default: {}
+  field :tag_tree, type: Hash, default: {
+    'name' => "",
+    'children' => [],
+    'pids' => [],
+    'pcount' => 0
+  }
 
   has_many :products, class_name: Product.name, inverse_of: :category
 

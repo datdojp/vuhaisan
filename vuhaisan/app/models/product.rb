@@ -31,25 +31,70 @@ class Product
     document.data = a[0]
     document.flattened_data = a[1]
 
-    # prepare category 's tag tree
-    # %%% remove it from old category
-    category = document.category
-    tag_tree = category.tag_tree
-    tag_tree['name'] ||= ""
-    tag_tree['pids'] ||= []
-    tag_tree['children'] ||= []
+    # BUILD CATEGORY 'S TAG TREE
     pid = document.id.to_s
-    # clear product from tag tree
-    iterator = nil
-    iterator = proc do |node|
-      node['pids'].delete(pid)
-      node['children'].each do |child|
-        iterator.call(child)
+    if document.persisted?
+      if document.category_id_changed?
+        origin_product = Product.where(id: pid).only(:category_id, :tags).first
+        if  origin_product.tags.length > 0
+          old_category = origin_product.category
+          __delete_pid_from_category_tag_tree(old_category.tag_tree, pid)
+          __recalculate_category_tag_tree_pcount(old_category.tag_tree)
+          __purge_category_tag_tree(old_category.tag_tree)
+          old_category.save
+        end
+        if document.tags.length > 0
+          new_category = document.category
+          __add_tags_to_category_tag_tree(new_category.tag_tree, document.tags, pid)
+          __recalculate_category_tag_tree_pcount(new_category.tag_tree)
+          new_category.save
+        end
+      elsif document.tags_changed?
+        category = document.category
+        __delete_pid_from_category_tag_tree(category.tag_tree, pid)
+        __add_tags_to_category_tag_tree(category.tag_tree, document.tags, pid)
+        __recalculate_category_tag_tree_pcount(category.tag_tree)
+        __purge_category_tag_tree(category.tag_tree)
+        category.save
+      end
+    else
+      if document.tags.length > 0
+        category = document.category
+        __add_tags_to_category_tag_tree(category.tag_tree, document.tags, pid)
+        __recalculate_category_tag_tree_pcount(category.tag_tree)
+        category.save
       end
     end
-    iterator.call(tag_tree)
-    # add product to tag tree
-    document.tags.each do |tag|
+  end
+
+  def __purge_category_tag_tree(node)
+    node['children'].each do |child|
+      if child['pcount'] == 0
+        node['children'].delete(child)
+      else
+        __purge_category_tag_tree(child)
+      end
+    end
+  end
+
+  def __delete_pid_from_category_tag_tree(node, pid)
+    node['pids'].delete(pid)
+    node['children'].each do |child|
+      __delete_pid_from_category_tag_tree(child, pid)
+    end
+  end
+
+  def __recalculate_category_tag_tree_pcount(node)
+    pcount = node['pids'].length
+    node['children'].each do |child|
+      pcount += __recalculate_category_tag_tree_pcount(child)
+    end
+    node['pcount'] = pcount
+    pcount
+  end
+
+  def __add_tags_to_category_tag_tree(tag_tree, tags, pid)
+    tags.each do |tag|
       tokens = tag.split(",")
       cur = tag_tree
       tokens.each_with_index do |t, i|
@@ -82,31 +127,6 @@ class Product
         end
       end
     end
-    # re-calculate pcount
-    iterator = nil
-    iterator = proc do |node|
-      pcount = node['pids'].length
-      node['children'].each do |child|
-        pcount += iterator.call(child)
-      end
-      node['pcount'] = pcount
-      pcount
-    end
-    iterator.call(tag_tree)
-    # delete node whose pcount == 0
-    iterator = nil
-    iterator = proc do |node|
-      node['children'].each do |child|
-        if child['pcount'] == 0
-          node['children'].delete(child)
-        else
-          iterator.call(child)
-        end
-      end
-    end
-    iterator.call(tag_tree)
-    # save category
-    category.save
   end
 
   UNITS = ["kg", "hundred_g", "item", "animal_item", "bottle", "bulk", "litre"]
