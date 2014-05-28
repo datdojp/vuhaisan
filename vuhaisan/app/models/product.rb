@@ -12,6 +12,7 @@ class Product
   field :flattened_data, type: String
 
   field :custom_fields, type: Hash, default: {}
+  field :tags, type: Array, default: []
 
   belongs_to :category, class_name: Category.name, inverse_of: :products
   has_many :order_items, class_name: OrderItem.name, inverse_of: :product
@@ -29,6 +30,47 @@ class Product
       :name, :unit_as_text, :price, :in_store_as_text, :category_as_text]
     document.data = a[0]
     document.flattened_data = a[1]
+
+    # prepare category 's tag
+    tag_tree = document.category.tag_tree
+    pid = document.id.to_s
+    __iterate_category_tags(
+        tag_tree,
+        [],
+        proc do |node|
+          node[:pids] ||= []
+          node[:pids].delete(pid)
+        end
+      )
+    document.tags.each do |tag|
+      tokens = tag.split(",")
+      cur = tag_tree
+      tokens.each_with_index do |t, i|
+        t.strip!
+        next if t.length == 0
+        if i < tokens.length-1
+          cur[:children].each do |child|
+            if child[:name] == t
+              cur = child
+              next
+            else
+              
+            end
+          end
+        else
+
+        end
+      end
+    end
+  end
+
+  def __iterate_category_tags(node, callback)
+    callback.call(node)
+    if node[:children] && node[:children].length > 0
+      node[:children].each do |child|
+        __iterate_category_tags(child, callback)
+      end
+    end
   end
 
   UNITS = ["kg", "hundred_g", "item", "animal_item", "bottle", "bulk", "litre"]

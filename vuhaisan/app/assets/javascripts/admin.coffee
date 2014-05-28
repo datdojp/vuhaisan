@@ -44,5 +44,18 @@ window.productNewEdit = ->
       "</div>"
     )
     customFieldId++
+
+  tagId = 0
+  window.addTag = (content) ->
+    name = "_tag_#{tagId}"
+    $('#tagInputs').append(
+      "<div id='#{name}' style='clear:both;margin-bottom:10px;overflow:hidden;'>" +
+        "<input type='text' name='#{name}' value='#{content}' required='required' class='form-control' style='float:left;width:400px;' />" +
+        "<button type='button' onclick='$(\"##{name}\").remove();return false;' class='btn btn-danger' style='float:left;margin-left:20px;width:35px'>" +
+          "<span class='glyphicon glyphicon-remove'></span>" +
+        "</button>" +
+      "</div>"
+    )
+    tagId++
   
         

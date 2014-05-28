@@ -82,6 +82,16 @@
     });
   </script>
 
+  <%= render partial: 'admin/product/tags' %>
+
+  <script type="text/javascript">
+    $(function() {
+      <% @product.tags.each do |t| %>
+        addTag("<%= t %>");
+      <% end %>
+    })
+  </script>
+
   <%= f.submit t("admin.edit"), class: 'btn btn-warning' %>
 <% end %>
 

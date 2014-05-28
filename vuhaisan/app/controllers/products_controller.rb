@@ -10,6 +10,7 @@ class ProductsController < ApplicationController
   before_filter :save_image, only: [:create, :update]
   before_filter :prepare_config
   before_filter :make_custom_fields, only: [:create, :update]
+  before_filter :make_tags, only: [:create, :update]
 
   def set_tab_index
     @tab = 0
@@ -52,6 +53,17 @@ class ProductsController < ApplicationController
       end
     end
     params[:product][:custom_fields] = custom_fields
+  end
+
+  def make_tags
+    tags = []
+    params.keys.each do |k|
+      if /^_tag_\d+$/.match(k)
+        t = params[k].strip
+        tags << t  if t && t.length > 0
+      end
+    end
+    params[:product][:tags] = tags
   end
 
   def index
