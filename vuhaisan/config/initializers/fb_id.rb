@@ -127,7 +127,13 @@ def get_search_criteria(
       and_criteria << { "$or" => [{data_field => regexp}, {flattened_data => regexp}] }
     end
   end
-  { "$and" => and_criteria }
+
+  ret = { "$and" => and_criteria }
+  if /^[0-9a-z]+$/.match(keyword)
+    { "$or" => [ ret, { id: keyword } ] }
+  else
+    ret
+  end
 end
 
 SHIP_COST = 30 * 1000
