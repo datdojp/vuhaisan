@@ -21,9 +21,9 @@ Vuhaisan::Application.configure do
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
     port:                 587,
-    domain:               'pari.vn',
-    user_name:            'no-reply@pari.vn',
-    password:             'dadaocongsan',
+    domain:               'gmail.com',
+    user_name:            'pari2.vn@gmail.com',
+    password:             'Concop12',
     authentication:       'plain',
     enable_starttls_auto: true  }
 
