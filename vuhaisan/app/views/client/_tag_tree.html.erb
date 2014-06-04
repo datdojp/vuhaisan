@@ -1,0 +1,31 @@
+<%
+  def render_tag_tree(node, level, html)
+    a = []
+    level.times do
+      a << '&nbsp;' * 4
+    end
+    a << node['name']
+    if node['children'].length == 0
+      a << "&nbsp;(#{node['pids'].length})"
+      render_one_tag(a, html)
+    else
+      render_one_tag(a, html)
+      node['children'].each do |n|
+        render_tag_tree(n, level + 1, html)
+      end
+    end
+  end
+
+  def render_one_tag(a, html)
+    html << "<div>#{a.join}</div>"
+  end
+
+  html = []
+  category.tag_tree['children'].each do |n|
+    render_tag_tree(n, 0, html)
+  end
+%>
+
+<div id="tagTree">
+  <%= html.join.html_safe %>
+</div>

@@ -58,6 +58,11 @@ class ClientController < ApplicationController
     end
 
     @products = criteria.page(params[:page]).per(10)
+
+    if @category_id
+      @category = Category.where(id: @category_id).first
+    end
+
     @title = I18n.t("client.home")
     render "client/home"
   end

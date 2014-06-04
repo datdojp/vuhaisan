@@ -22,4 +22,8 @@ class Category
   def self.get_client_categories_criteria
   	Category.where(hidden: false).order_by([[:no, :asc]])
   end
+
+  def has_tag_tree?
+    tag_tree && tag_tree['pcount'] > 0
+  end
 end
