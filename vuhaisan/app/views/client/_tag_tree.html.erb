@@ -1,31 +1,55 @@
 <%
-  def render_tag_tree(node, level, html)
-    a = []
-    level.times do
-      a << '&nbsp;' * 4
-    end
-    a << node['name']
+  def render_tag_tree(node, level, html, cate_id, path, selected_path)
+    indent = '&nbsp;' * 6 * level
+    current_path = [].concat(path)
+    current_path << node['name']
     if node['children'].length == 0
-      a << "&nbsp;(#{node['pids'].length})"
-      render_one_tag(a, html)
+      link = client_home_path(
+                category_id: cate_id,
+                tag_tree_path: current_path.join(','))
+      selected = current_path == selected_path
+      render_one_tag([
+        "<tr class='#{ selected ? 'selected' : '' }'>",
+          "<td>",
+            "<a href='#{link}' class='name'>",
+              indent,
+              node['name'],
+            "</a>",
+          "</td>",
+          "<td align='right' style='padding-left: 10px;'>",
+            "<span class='pcount'>#{node['pids'].length}</span>",
+          "</td>",
+        "</tr>"
+      ], html)
     else
-      render_one_tag(a, html)
+      render_one_tag([
+        "<tr>",
+          "<td colspan='2'>",
+            "<span class='name parent'>",
+              indent,
+              node['name'],
+            "</span>",
+          "</td>",
+        "</tr>"
+      ], html)
       node['children'].each do |n|
-        render_tag_tree(n, level + 1, html)
+        render_tag_tree(n, level + 1, html, cate_id, current_path, selected_path)
       end
     end
   end
 
   def render_one_tag(a, html)
-    html << "<div>#{a.join}</div>"
+    html << "<tr>#{a.join}</tr>"
   end
 
   html = []
   category.tag_tree['children'].each do |n|
-    render_tag_tree(n, 0, html)
+    render_tag_tree(n, 0, html, category.id, [], selected_path)
   end
 %>
 
 <div id="tagTree">
-  <%= html.join.html_safe %>
+  <table style="width:100%;" cellspacing="0">
+    <%= html.join.html_safe %>
+  </table>
 </div>

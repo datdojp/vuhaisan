@@ -78,6 +78,7 @@ vi:
       name: "Tên thuộc tính"
       options: "Các lựa chọn"
     tags: "Tag"
+    client_page: "Trang khách hàng"
   client:
     in_store: "Còn hàng"
     not_in_store: "Hết hàng"

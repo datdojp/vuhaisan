@@ -1,85 +1,96 @@
-<div id="productList">
-  <div id="facepile" class="fbsp">
-    <fb:facepile
-      href="<%= get_fanpage %>"
-      max_rows="1"
-      colorscheme="light"
-      size="medium"
-      show_count="true">
-    </fb:facepile>
-    <br/>
-    <div class="fb-like" data-href="<%= get_fanpage %>" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-  </div>
-  <br/>
-<% if @products && @products.length > 0 %>
+<div id="productList" align="center">
   <table>
     <tr>
-      <% if @category && @category.has_tag_tree? %>
-      <td style="width:200px;vertical-align:top;">
-        <%= render partial: 'tag_tree', locals: { category: @category } %>
+      <td colspan="2">
+        <div id="facepile" class="fbsp">
+          <fb:facepile
+            href="<%= get_fanpage %>"
+            max_rows="1"
+            colorscheme="light"
+            size="medium"
+            show_count="true">
+          </fb:facepile>
+          <br/>
+          <div class="fb-like" data-href="<%= get_fanpage %>" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+        </div>
       </td>
+    <tr>
+      <% if @category && @category.has_tag_tree? %>
+        <td style="vertical-align:top;">
+          <%= render partial: 'tag_tree', locals: {
+                  category: @category,
+                  selected_path: @tag_tree_path } %>
+        </td>
+      <% else %>
+        <td style="width:0px;"></td>
       <% end %>
-      <td style="width:600px;vertical-align:top;">
-        <% @products.each_with_index do |p, i| %>
-          <% product_detail_link = client_product_detail_path(p.id) %>
-          <a href="<%= product_detail_link %>">
-            <div class="product">
-              <table style="width:100%;" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td class="col1">
-                    <%= render partial: "product_info", locals: {product: p} %>
-                  </td>
-                  <td align="right" class="col2">
-                    <% if p.has_image? %>
-                      <img src="<%= p.images[0] %>" id="<%= p.id.to_s %>_img"/>
-                    <% end %>
-                  </td>
-                <tr>
-              </table>
-            </div>
-          </a>
-          <div class="footer">
-              <% product_detail_full_link = "#{request.protocol}#{request.host_with_port}#{product_detail_link}" %>
-              <table style="float:left;">
-                <tr>
-                  <td>
-                    <div  class="fb-like fbsp" 
-                          data-href="<%= product_detail_full_link %>" 
-                          data-layout="button_count" 
-                          data-action="like" 
-                          data-show-faces="false" 
-                          data-share="true"></div>
-                  </td>
-                  <td>
-                    <%= image_tag "comment.png", class: 'commentCountImg fbsp' %>
-                  </td>
-                  <td>
-                    <fb:comments-count 
-                        class="count" 
-                        href="<%= product_detail_full_link %>" 
-                        style="float:left;"></fb:comments-count>
-                  </td>
-                </tr>
-              </table>
-              <% if p.in_store? && p.custom_fields.empty? %>
-              <div class="addToCartButton" data-product-id="<%= p.id.to_s %>">
-                <%= image_tag "cart12.png", title: t("client.add_to_cart") %>
+      <% if @products && @products.length > 0 %>
+        <td style="width:600px;vertical-align:top;  ">
+          <% @products.each_with_index do |p, i| %>
+            <% product_detail_link = client_product_detail_path(p.id) %>
+            <a href="<%= product_detail_link %>">
+              <div class="product">
+                <table style="width:100%;" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td class="col1">
+                      <%= render partial: "product_info", locals: {product: p} %>
+                    </td>
+                    <td align="right" class="col2">
+                      <% if p.has_image? %>
+                        <img src="<%= p.images[0] %>" id="<%= p.id.to_s %>_img"/>
+                      <% end %>
+                    </td>
+                  <tr>
+                </table>
               </div>
-              <% end %>
+            </a>
+            <div class="footer">
+                <% product_detail_full_link = "#{request.protocol}#{request.host_with_port}#{product_detail_link}" %>
+                <table style="float:left;">
+                  <tr>
+                    <td>
+                      <div  class="fb-like fbsp" 
+                            data-href="<%= product_detail_full_link %>" 
+                            data-layout="button_count" 
+                            data-action="like" 
+                            data-show-faces="false" 
+                            data-share="true"></div>
+                    </td>
+                    <td>
+                      <%= image_tag "comment.png", class: 'commentCountImg fbsp' %>
+                    </td>
+                    <td>
+                      <fb:comments-count 
+                          class="count" 
+                          href="<%= product_detail_full_link %>" 
+                          style="float:left;"></fb:comments-count>
+                    </td>
+                  </tr>
+                </table>
+                <% if p.in_store? && p.custom_fields.empty? %>
+                <div class="addToCartButton" data-product-id="<%= p.id.to_s %>">
+                  <%= image_tag "cart12.png", title: t("client.add_to_cart") %>
+                </div>
+                <% end %>
+            </div>
+          <% end %>
+        </td>
+      <% else %>
+        <td>
+          <div align="center">
+            <h2><%= t 'client.no_product' %></h2>
           </div>
-        <% end %>
+        </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div style='float:right'>
+          <%= paginate @products %>
+        </div>
       </td>
     </tr>
   </table>
-<% else %>
-  <div align="center">
-    <h2><%= t 'client.no_product' %></h2>
-  </div>
-<% end %>
-  <br/>
-  <div style='float:right'>
-    <%= paginate @products %>
-  </div>
 </div>
 
 <script type="text/javascript">

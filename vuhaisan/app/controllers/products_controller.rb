@@ -74,6 +74,8 @@ class ProductsController < ApplicationController
       criteria = Product.all
     end
 
+    criteria = criteria.order_by([[:name, :asc]])
+
     @products = criteria.page(params[:page]).per(10)
     @title = I18n.t "admin.product_list"
     render "admin/product/index"

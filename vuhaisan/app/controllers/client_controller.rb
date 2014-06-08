@@ -57,11 +57,43 @@ class ClientController < ApplicationController
       return
     end
 
-    @products = criteria.page(params[:page]).per(10)
-
     if @category_id
       @category = Category.where(id: @category_id).first
+
+      tag_tree_path = params[:tag_tree_path]
+      tag_tree_path.strip! if tag_tree_path
+      if  tag_tree_path &&
+          tag_tree_path.length > 0 &&
+          @category &&
+          @category.has_tag_tree?
+        splitted = tag_tree_path.split(',')
+        @tag_tree_path = []
+        splitted.each do |t|
+          next if !t || t.length == 0
+          @tag_tree_path << t
+        end
+        current_node = @category.tag_tree
+        @tag_tree_path.each do |t|
+          next_child = nil
+          current_node['children'].each do |child|
+            if child['name'] == t
+              next_child = child
+              break
+            end
+          end
+          if next_child
+            current_node = next_child
+          else
+            break
+          end
+        end
+        if current_node
+          criteria = criteria.where(id: { '$in' => current_node['pids'] })
+        end
+      end
     end
+
+    @products = criteria.page(params[:page]).per(10)
 
     @title = I18n.t("client.home")
     render "client/home"

@@ -523,3 +523,51 @@ body {
   font-size: 14pt;
   font-weight: bold;
 }
+
+/*
+=== TAG TREE ===
+*/
+#tagTree {
+  min-width: 150px;
+  padding: 10px 0px 10px 0px;
+  border-radius: 10px;
+  border: solid 3px rgb(218, 217, 217);
+  background: url(image_path('tag_tree_bg.png')) repeat;
+}
+
+#tagTree td {
+  padding: 5px 10px 5px 10px;
+}
+
+#tagTree tr.selected {
+  background-color: #ffffff !important;
+}
+
+#tagTree tr.selected .name {
+  color: #AA7309 !important;
+}
+
+#tagTree .name {
+  color: rgb(79, 77, 77);
+  font-family: 'Open Sans', sans-serif !important;
+  font-size: 12pt !important;
+}
+
+#tagTree .parent {
+  font-weight: bold;
+}
+
+#tagTree a.name:hover {
+  color: #AA7309 !important;
+}
+
+#tagTree .pcount {
+  border: solid 1px white;
+  color: rgb(166, 166, 166);
+  font-family: 'Open Sans', sans-serif;
+  font-size: 13px;
+  height: 25px;
+  padding: 0px 5px 0px 5px;
+  vertical-align: center;
+  line-height: 25px;
+}
