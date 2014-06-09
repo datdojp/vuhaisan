@@ -244,3 +244,5 @@ end
 def get_request_url()
   "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
 end
+
+CONTACT_EMAIL_ADDRESS = 'contact@pari.vn'
