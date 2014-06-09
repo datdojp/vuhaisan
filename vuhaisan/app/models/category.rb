@@ -19,6 +19,31 @@ class Category
   	document.no = Category.count
   end
 
+  before_save do |doc|
+    __sort_tag_tree_node(doc.tag_tree)
+  end
+
+  def __sort_tag_tree_node(node)
+    if node['children'].length > 0
+      node['children'].sort! { |left, right|
+        is_left_leaf = left['children'].length == 0
+        is_right_leaf = right['children'].length == 0
+        if is_left_leaf == is_right_leaf
+          left['name'] <=> right['name']
+        else
+          if is_left_leaf
+            1
+          else
+            -1
+          end
+        end
+      }
+      node['children'].each do |child|
+        __sort_tag_tree_node(child)
+      end
+    end
+  end
+
   def self.get_client_categories_criteria
   	Category.where(hidden: false).order_by([[:no, :asc]])
   end
