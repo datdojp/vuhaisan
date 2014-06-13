@@ -14,6 +14,8 @@ class Product
   field :custom_fields, type: Hash, default: {}
   field :tags, type: Array, default: []
 
+  field :hidden, type: Boolean, default: false
+
   belongs_to :category, class_name: Category.name, inverse_of: :products
   has_many :order_items, class_name: OrderItem.name, inverse_of: :product
 

@@ -17,7 +17,7 @@
       <td>
         <%= link_to(
                 t("admin.client_page"),
-                client_home_path(category_id: c.id),
+                client_home_path(category_id: c.id, ignore_hidden: true),
                 target: "_blank") %>
       </td>
       <td>

@@ -21,6 +21,13 @@ class Category
 
   before_save do |doc|
     __sort_tag_tree_node(doc.tag_tree)
+
+    if doc.hidden_changed?
+      doc.products.each do |p|
+        p.hidden = doc.hidden
+        p.save
+      end
+    end
   end
 
   def __sort_tag_tree_node(node)

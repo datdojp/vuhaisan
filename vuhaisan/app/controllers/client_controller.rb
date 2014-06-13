@@ -93,6 +93,11 @@ class ClientController < ApplicationController
       end
     end
 
+    # do not show hidden product (product whose category is hidden)
+    if !params[:ignore_hidden]
+      criteria = criteria.where(hidden: false)
+    end
+
     @products = criteria.page(params[:page]).per(10)
 
     @title = I18n.t("client.home")
