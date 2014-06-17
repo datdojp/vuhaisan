@@ -1,5 +1,6 @@
 <%
   def render_tag_tree(node, level, html, cate_id, path, selected_path)
+    return if node['pcount'] == 0
     indent = '&nbsp;' * 6 * level
     current_path = [].concat(path)
     current_path << node['name']
