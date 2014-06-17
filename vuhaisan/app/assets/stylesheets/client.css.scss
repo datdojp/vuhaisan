@@ -530,9 +530,9 @@ body {
 #tagTree {
   min-width: 150px;
   padding: 10px 0px 10px 0px;
-  border-radius: 10px;
-  border: solid 3px rgb(218, 217, 217);
-  background: url(image_path('tag_tree_bg.png')) repeat;
+  border-radius: 2px;
+  background: #5dbb87;
+  box-shadow: 1px 1px 2px #666;
 }
 
 #tagTree td {
@@ -547,10 +547,13 @@ body {
   color: #AA7309 !important;
 }
 
+#tagTree tr.selected .pcount {
+  color: #AA7309 !important;
+}
+
 #tagTree .name {
-  color: rgb(79, 77, 77);
-  font-family: 'Open Sans', sans-serif !important;
-  font-size: 12pt !important;
+  color: #EFFDF6;
+  font-size: 11pt;
 }
 
 #tagTree .parent {
@@ -562,12 +565,5 @@ body {
 }
 
 #tagTree .pcount {
-  border: solid 1px white;
-  color: rgb(166, 166, 166);
-  font-family: 'Open Sans', sans-serif;
-  font-size: 13px;
-  height: 25px;
-  padding: 0px 5px 0px 5px;
-  vertical-align: center;
-  line-height: 25px;
+   color: white;
 }
