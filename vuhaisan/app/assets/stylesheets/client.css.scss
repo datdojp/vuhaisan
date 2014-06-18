@@ -310,8 +310,8 @@ body {
 }
 
 #productList .footer {
-  background: #93DA93;
-  border: #6faa6f 1px dotted;
+  background: #CBE1CB;
+  box-shadow: 0px 0px 1px #666;
   width: 100%;
   clear: both;
   height: 30px;
@@ -415,6 +415,7 @@ body {
 }
 
 #product_detail .desc {
+  background: #5dbb87;
   background-color: #44BF42;
   border-radius: 5px;
   padding: 10px 10px 10px 10px;
