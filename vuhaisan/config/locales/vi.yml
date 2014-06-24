@@ -130,6 +130,7 @@ vi:
     confirm_success_at_delivery: "Đơn hàng đã được xác nhận và gửi đi thành công. Xin cảm ơn quý khách.<br/>Chúng tôi sẽ liên hệ với quý khách trong thời gian sớm nhất để tiến hành giao hàng."
     confirm_success_bank_transfer: "Đơn hàng đã được xác nhận và gửi đi thành công. Xin cảm ơn quý khách.<br/>Ngay khi có tiền vào tài khoản hứng tiền tại ngân hàng, chúng tôi sẽ liên hệ quý khách để tiến hành giao hàng."
     search_hint: "Hướng dẫn tìm kiếm"
+    payment_hint: "Hướng dẫn thanh toán"
     err_order_not_found: "Đơn hàng không tồn tại"
     err_user_not_logged_in: "Quý khách cần đăng nhập để thấy nội dung này"
     policy: "Chính sách bán hàng"

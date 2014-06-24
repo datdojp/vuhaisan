@@ -10,8 +10,20 @@
       	Địa điểm giao dịch: 300 C4 Nguyễn Văn Đậu - Bình Thạnh - HCM
       </td>
       <td align="right" style="padding-right:30px;vertical-align:top;">
-        <%= link_to t('client.policy'), "#{client_info_path}#policy", target: '_blank',
-              style: 'color:white !important;' %>
+        <div>
+          <%= link_to t('client.policy'), "#{client_info_path}#policy", target: '_blank',
+                style: 'color:white !important;' %>
+        </div>
+
+        <div>
+          <%= link_to t('client.payment_hint'), "#{client_info_path}#pay_at_delivery", target: '_blank',
+                style: 'color:white !important; margin-top:5px' %>
+        </div>
+        
+        <div>
+          <%= link_to t('client.search_hint'), "#{client_info_path}#search_hint", target: '_blank',
+                style: 'color:white !important;' %>
+        </div>
       </td>
     </tr>
   </table>

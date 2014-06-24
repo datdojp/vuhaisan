@@ -48,7 +48,9 @@ body {
   position: relative;
   background: #F0F0F0;
   padding-left: 10px;
+  box-shadow: 1px 1px 5px #666;
 }
+
 #menuBar #categoryList {
   float:left;
 }
@@ -251,7 +253,7 @@ body {
   padding-left: 15px;
   padding-top: 10px;
   color: #D5ECCD;
-  font-size: 12pt;
+  font-size: 11pt;
   line-height: 18px;
   margin-bottom: 5px;
 }
