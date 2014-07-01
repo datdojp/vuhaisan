@@ -132,7 +132,7 @@ class Product
     end
   end
 
-  UNITS = ["kg", "hundred_g", "item", "animal_item", "bottle", "bulk", "litre"]
+  UNITS = ["kg", "hundred_g", "item", "animal_item", "bottle", "bulk", "litre", "set"]
 
   def self.get_unit_text(unit)
     I18n.t "admin.#{unit}"

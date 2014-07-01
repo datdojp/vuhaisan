@@ -79,6 +79,7 @@ vi:
       options: "Các lựa chọn"
     tags: "Tag"
     client_page: "Trang khách hàng"
+    set: "bộ"
   client:
     in_store: "Còn hàng"
     not_in_store: "Hết hàng"
