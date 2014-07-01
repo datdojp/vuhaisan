@@ -98,6 +98,9 @@ class ClientController < ApplicationController
       criteria = criteria.where(hidden: false)
     end
 
+    # sort by updated_at
+    criteria = criteria.order_by([[:updated_at, :desc]])
+
     @products = criteria.page(params[:page]).per(10)
 
     @title = I18n.t("client.home")

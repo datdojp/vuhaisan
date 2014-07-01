@@ -1,5 +1,6 @@
 class Product
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   field :name, type: String
   field :unit, type: String # kg, lit, cai, v.v...
