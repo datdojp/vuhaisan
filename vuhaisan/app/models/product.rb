@@ -34,6 +34,10 @@ class Product
     document.data = a[0]
     document.flattened_data = a[1]
 
+    if document.category_id_changed?
+      document.hidden = document.category.hidden
+    end
+
     # BUILD CATEGORY 'S TAG TREE
     pid = document.id.to_s
     if document.persisted?
