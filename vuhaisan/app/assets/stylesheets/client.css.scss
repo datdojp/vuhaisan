@@ -39,7 +39,7 @@ body {
   overflow-x: hidden;
   margin: 0px;
   padding: 0px;
-  background-color: ghostwhite;
+  background-color: #E6E6CB;
 }
 
 #menuBar {
@@ -376,7 +376,8 @@ body {
 
 #product_detail .col1 {
   float: left;
-  width: 40%
+  width: 40%;
+  background: ghostwhite;
 }
 
 #product_detail .col1 img {
@@ -472,7 +473,7 @@ body {
 }
 
 #cartDetail #deliveryInfo .label {
-  background-color: #CDFBD5;
+  background-color: none !important;
   color: #003D1A;
   font-size: 10pt;
   padding: 10px;
