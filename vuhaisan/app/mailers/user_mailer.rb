@@ -3,6 +3,6 @@ class UserMailer < ActionMailer::Base
 
   def order_changed_email(order)
     @order = order
-    mail to: order.email
+    mail to: order.email, cc: [ADMIN_EMAIL_ADDRESS]
   end
 end

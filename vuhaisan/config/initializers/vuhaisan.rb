@@ -246,3 +246,5 @@ def get_request_url()
 end
 
 CONTACT_EMAIL_ADDRESS = 'contact@pari.vn'
+
+ADMIN_EMAIL_ADDRESS = 'caovuxy@gmail.com'
