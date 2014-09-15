@@ -4,12 +4,12 @@ def get_fb_id(request)
   if request.host == "localhost"
     "528436213933673" # dev
   else
-    "282232941951912" # production
+    "712455595474724" # production
   end
 end
 
 def get_fanpage
-  "https://www.facebook.com/pages/Parivn/228045140567855"
+  "https://www.facebook.com/pages/K%E1%BB%B2-NHI%C3%8AN-Y%E1%BA%BEN/734621033225514"
 end
 
 VIETNAMESE_CHARS = [
