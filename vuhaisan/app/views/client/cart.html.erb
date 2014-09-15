@@ -96,14 +96,6 @@
               onclick: "updateSubmitButton('#{t 'client.confirm'}');") %>
         <%= Order.get_payment_as_text Order::PAYMENT_BANK_TRANSFER %>
         <%= link_to '[?]', "#{client_info_path}#pay_bank_transfer", target: '_blank' %>
-        <br/>
-        <%= radio_button_tag(
-              :payment,
-              Order::PAYMENT_VTC_PAY,
-              Order::PAYMENT_VTC_PAY == @cart.payment,
-              onclick: "updateSubmitButton('#{t 'client.pay'}');") %>
-        <%= Order.get_payment_as_text Order::PAYMENT_VTC_PAY %>
-        <%= link_to '[?]', "#{client_info_path}#pay_vtc", target: '_blank' %>
 
         <script type="text/javascript">
           function updateSubmitButton(val) {

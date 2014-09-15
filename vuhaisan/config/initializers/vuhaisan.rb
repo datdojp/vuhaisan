@@ -12,14 +12,6 @@ def get_fanpage
   "https://www.facebook.com/pages/Parivn/228045140567855"
 end
 
-VTC_PAY_BASE_URL = "https://pay.vtc.vn/cong-thanh-toan/checkout.html"
-VTC_PAY_WEBSITE_ID = "790"
-VTC_PAY_PAYMENT_METHOD = 1
-VTC_PAY_RECEIVER_ACC = "0987002799"
-VTC_PAY_SECRET = "dadaocongsanBANNUOC123"
-VTC_PARAM_EXTEND = ""
-VTC_RESULT_URL = "/payment/vtc"
-
 VIETNAMESE_CHARS = [
   "à","á","ạ","ả","ã","â","ầ","ấ","ậ","ẩ","ẫ","ă",
   "ằ","ắ","ặ","ẳ","ẵ","è","é","ẹ","ẻ","ẽ","ê","ề",
