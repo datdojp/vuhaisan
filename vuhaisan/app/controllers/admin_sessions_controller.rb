@@ -1,7 +1,7 @@
 class AdminSessionsController < ApplicationController
 
-  ADMIN_USERNAME = "admin"
-  ADMIN_PASSWORD = "dadaocongsan"
+  ADMIN_USERNAME = "khuonganh"
+  ADMIN_PASSWORD = "khuonganhxinhdep"
 
   def new
     render "admin/session/new"
