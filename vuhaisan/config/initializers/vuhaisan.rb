@@ -128,7 +128,8 @@ def get_search_criteria(
   end
 end
 
-SHIP_COST = 30 * 1000
+SHIP_COST = 40 * 1000
+SHIP_COST_HCM = 20 * 1000
 
 LOCATION_DATA = {
   "An Giang" => SHIP_COST,
@@ -162,29 +163,29 @@ LOCATION_DATA = {
   "Hòa Bình" => SHIP_COST,
   "TP Hồ Chí Minh" => {
     "Quận 1" => 0,
-    "Quận 2" => 0,
+    "Quận 2" => SHIP_COST_HCM,
     "Quận 3" => 0,
     "Quận 4" => 0,
     "Quận 5" => 0,
-    "Quận 6" => SHIP_COST,
+    "Quận 6" => 0,
     "Quận 7" => 0,
-    "Quận 8" => SHIP_COST,
-    "Quận 9" => SHIP_COST,
+    "Quận 8" => SHIP_COST_HCM,
+    "Quận 9" => 0,
     "Quận 10" => 0,
     "Quận 11" => 0,
-    "Quận 12" => SHIP_COST,
-    "Thủ Đức" => SHIP_COST,
+    "Quận 12" => SHIP_COST_HCM,
+    "Thủ Đức" => SHIP_COST_HCM,
     "Tân Phú" => 0,
     "Tân Bình" => 0,
     "Phú Nhuận" => 0,
     "Gò Vấp" => 0,
     "Bình Thạnh" => 0,
-    "Bình Tân" => SHIP_COST,
-    "Bình Chánh" => SHIP_COST,
-    "Cần Giờ" => SHIP_COST,
-    "Củ Chi" => SHIP_COST,
-    "Hóc Môn" => SHIP_COST,
-    "Nhà Bè" => SHIP_COST
+    "Bình Tân" => 0,
+    "Bình Chánh" => SHIP_COST_HCM,
+    "Cần Giờ" => 0,
+    "Củ Chi" => 0,
+    "Hóc Môn" => SHIP_COST_HCM,
+    "Nhà Bè" => SHIP_COST_HCM
   },
   "Hưng Yên" => SHIP_COST,
   "Khánh Hòa" => SHIP_COST,
