@@ -23,7 +23,7 @@ Vuhaisan::Application.configure do
     port:                 587,
     domain:               'gmail.com',
     user_name:            'pari2.vn@gmail.com',
-    password:             'Concop12',
+    password:             'oldpassword',
     authentication:       'plain',
     enable_starttls_auto: true  }
 
