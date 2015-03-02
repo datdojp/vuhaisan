@@ -80,6 +80,8 @@ vi:
     tags: "Tag"
     client_page: "Trang khách hàng"
     set: "bộ"
+    loc: "lốc"
+    vien: "viên"
   client:
     in_store: "Còn hàng"
     not_in_store: "Hết hàng"
